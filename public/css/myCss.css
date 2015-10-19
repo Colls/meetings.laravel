@@ -1,0 +1,250 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #34346b !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+a
+{
+    color: #5d1429 !important;
+}
+
+body
+{
+    background: url(../img/bg2.gif);
+}
+
+body > div, header
+{
+
+    margin: 10px auto;
+    width: 980px;
+    background: #fffafa;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.top
+{
+    height: 80px;
+    line-height: 80px;
+    position: relative;
+    background:#fffafa no-repeat url(../img/logo.png) 10px 50%;
+}
+
+.top > .title
+{
+    position: relative;
+    top: 7px;
+    left: 62px;
+    font-size: 36px;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.menu
+{
+    position: absolute;
+    list-style-type: none;
+    top: 0;
+    right: 0;
+}
+
+.menu > li > ul
+{
+    list-style-type: none;
+}
+
+.menu > li
+{
+    float: left;
+    margin: 10px;
+}
+
+.menu > li > a
+{
+    display: block;
+    font-size: 16px;
+    text-decoration: underline !important;
+}
+
+header
+{
+    background: url(../img/people.jpg) 0 -1px;
+    height: 169px;
+}
+
+.content
+{
+    text-align: center;
+    min-height: 400px;
+}
+
+.content > title
+{
+    height: 25px;
+    line-height: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    box-sizing: content-box;
+    padding: 10px 30px;
+    background: linear-gradient(to bottom, #f5f0f5, #faeeff);
+}
+
+.content > .text
+{
+    text-align: justify;
+    padding:10px;
+}
+
+.content > .center
+{
+    text-align: center;
+}
+
+footer
+{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background: #efe9fb;
+    background: linear-gradient(to bottom, #efe9fb, #fff9fb);
+    font-size: 11px;
+}
+
+.user
+{
+    background: #f0f0f5;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 205px;
+    /*height: 280px;*/
+    /*overflow-y: hidden;*/
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.user:hover
+{
+    opacity: 1.0;
+    border: 1px solid silver;
+}
+
+.user > div
+{
+    display: inline-block;
+    background: linear-gradient(to bottom, #fadaee, #e5e5ee) ;
+    width: 170px;
+    height: 200px;
+    line-height: 200px;
+    vertical-align: middle;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    margin: 10px auto;
+}
+
+.user > div > img
+{
+    position: relative;
+    margin: auto;
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.user > a
+{
+    display: inline-block;
+    background: linear-gradient(to bottom, #fadaee, #f2eeff);
+    width: 195px;
+    height: 25px;
+    line-height: 25px;
+    text-decoration: none;
+    border: 1px solid #e0ddff;
+    border-radius: 5px;
+    margin: 10px auto;
+    color: #5d1429;
+}
+
+.user > a:hover
+{
+    display: inline-block;
+    color: #ae2c42 !important;
+    background: linear-gradient(to bottom, #ffdaee, #faeeff);
+}
+
+.clear
+{
+    clear: both;
+}
+
+#paginator *
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 3px;
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+#paginator span
+{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    opacity: 1;
+}
+
+.friends > .user
+{
+    height: 290px;
+}
+
+.friends > .user > a
+{
+    display: inline-block;
+    width: 49%;
+    float: left;
+}
+
+.backToPrevious
+{
+    display: block;
+    margin: 10px;
+}
+
+.hidden
+{
+    display: none !important;
+}
+
+.registration
+{
+    padding: 10px;
+}
+
+.registration .btn
+{
+    color: #fff !important;
+}

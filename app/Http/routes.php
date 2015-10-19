@@ -21,7 +21,14 @@ get('/girls',['as' => 'girls','uses' => 'UserController@girls']);
 get('/registration',['as' => 'user.create','uses' => 'UserController@create']);
 post('/registration',['as' => 'user.store','uses' => 'UserController@store']);
 get('/login',['as' => 'login','uses' => 'UserController@login']);
-
+post('/login',['as' => 'user.auth','uses' => 'UserController@auth']);
 get('/user/{id}',['as' => 'user.info','uses' => 'UserController@show']);
+//Route::group(['middleware' => 'auth'], function() {
+//
+//});
+get('/user/{id}/edit',['as' => 'user.edit','uses' => 'UserController@edit']);
+post('/user/{id}/edit',['as' => 'user.update','uses' => 'UserController@update']);
+
+get('/logout',['as' => 'logout','uses' => 'UserController@logout']);
 
 

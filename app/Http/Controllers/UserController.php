@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
+use Auth; //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Avatar;
 
@@ -63,8 +64,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param User $userModel
+     * @param Avatar $avatarModel
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, User $userModel, Avatar $avatarModel)
     {
@@ -107,7 +110,8 @@ class UserController extends Controller
                 'active' => 1
             ]);
         }
-        return redirect()->route('/');
+        return redirect()->route('home');
+        // todo redirect to profile page
     }
 
     /**
@@ -116,9 +120,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $modelUser, $id)
     {
-        //
+        $user = $modelUser->getUser($id);
+        $interests = null;
+        $friends = null;
+        return view('profile', ['user' => $user, 'interests' => $interests, 'friends' => $friends]);
     }
 
     /**
@@ -153,5 +160,36 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function login()
+    {
+        return view('login');
+    }
+
+    public function auth(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+                'remember' => 'boolean'
+            ],
+            [
+                'required' => 'You have not fill field ":attribute". Please, fill it'
+            ]
+        );
+//        $remember = $request->has('remember') ? true : null;
+        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
+            return redirect()->route('user.info', ['id' => Auth::user()->id]);
+        }
+        return redirect('login')->withErrors('Неправильный email или пароль');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

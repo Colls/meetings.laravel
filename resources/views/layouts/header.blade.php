@@ -26,8 +26,13 @@
             <li>{!! link_to_route('home', 'Главная') !!}</li>
             <li>{!! link_to_route('boys', 'Парни') !!}</li>
             <li>{!! link_to_route('girls', 'Девушки') !!}</li>
-            <li>{!! link_to_route('user.create', 'Регистрация') !!}</li>
-            <li>{!! link_to_route('login', 'Войти') !!}</li>
+            @if (Auth::check())
+                <li>{!! link_to_route('user.info', 'Моя страница', ['id' => Auth::user()->id]) !!}</li>
+                <li>{!! link_to_route('logout', 'Выйти') !!}</li>
+            @else
+                <li>{!! link_to_route('user.create', 'Регистрация') !!}</li>
+                <li>{!! link_to_route('login', 'Войти') !!}</li>
+            @endif
         </ul>
     </div>
     <header></header>

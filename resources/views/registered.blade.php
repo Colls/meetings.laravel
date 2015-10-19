@@ -1,13 +1,13 @@
 @extends('layouts.simple_layout')
 @section('content')
 <div class="registered">
-    @foreach ($registered as $people)
+    @foreach ($registered as $user)
     <div class="user">
         <div>
-            <img src = "upload/{{ $people->storage }}/{{ $people->avatar }}">
+            <img src = "upload/{{ $user->storage }}/{{ $user->avatar }}">
         </div>
-        {{ $people->first_name }}, {{ Carbon::create(explode('-', $people->birth_date)[0])->diffInYears(Carbon::now()) }}
-        {!! link_to_route('user.info', 'Подробнее', ['id' => $people->id]) !!}
+        {{ $user->first_name }}, {{ Carbon::create(explode('-', $user->birth_date)[0])->diffInYears(Carbon::now()) }}
+        {!! link_to_route('user.info', 'Подробнее', ['id' => $user->id]) !!}
     </div>
     @endforeach
 </div>

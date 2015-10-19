@@ -14,6 +14,7 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->delete();
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Анна',
             'last_name' => 'Бобенко',
             'gender' => 'f',
@@ -24,6 +25,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bab048c10'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Борис',
             'last_name' => 'Левин',
             'gender' => 'm',
@@ -34,6 +36,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bacfc92c0'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Глеб',
             'last_name' => 'Романенко',
             'gender' => 'm',
@@ -44,6 +47,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bb227b4a8'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Семён',
             'last_name' => 'Лобанов',
             'gender' => 'm',
@@ -54,6 +58,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bb3ee7720'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Фил',
             'last_name' => 'Ричардс',
             'gender' => 'm',
@@ -64,6 +69,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bb5bdcb40'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Варвара',
             'last_name' => 'Черноус',
             'gender' => 'f',
@@ -74,6 +80,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bb771ffb8'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Полина',
             'last_name' => 'Купитман',
             'gender' => 'f',
@@ -84,6 +91,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bb9043620'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Андрей',
             'last_name' => 'Быков',
             'gender' => 'm',
@@ -94,6 +102,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bba7b0838'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Иван',
             'last_name' => 'Купитман',
             'gender' => 'm',
@@ -104,6 +113,7 @@ class UsersSeeder extends Seeder
             'storage' => '5624bbb865518'
         ]);
         User::create([
+            'remember_token' => 'ycEBBNqIpUk2GSq0cOPBkjcppUZxu9PXz9y7rlaA',
             'first_name' => 'Анастасия',
             'last_name' => 'Кисегач',
             'gender' => 'f',

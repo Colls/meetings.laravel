@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'gender', 'email', 'password', 'married', 'birth_date', 'avatar_id'];
+    protected $fillable = ['remember_token', 'first_name', 'last_name', 'gender', 'email', 'password', 'married', 'birth_date', 'storage'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -53,7 +53,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function getGirls()
     {
-        $girls = $this->latest('users.created_at')->join('avatars', 'avatars.id', '=', 'users.avatar_id')->where('gender', '=', 'f')->paginate(8);
+        $girls = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'f')->where('active', '=', 1)->paginate(8);
         return $girls;
     }
 
@@ -63,10 +63,14 @@ class User extends Model implements AuthenticatableContract,
      */
     public function getLast()
     {
-        $last = $this->latest('users.created_at')->join('avatars', 'avatars.id', '=', 'users.avatar_id')->paginate(8);
+        $last = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->paginate(8);
         return $last;
     }
 
+    /**
+     * create personal user folder
+     * @return bool|string
+     */
     public function createUserStorage()
     {
         $folder_name = uniqid();
@@ -76,5 +80,11 @@ class User extends Model implements AuthenticatableContract,
             return $folder_name;
         }
         return false;
+    }
+
+    public function getUser($id)
+    {
+        $user = $this->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->where('users.id', '=', $id)->get();
+        return $user;
     }
 }

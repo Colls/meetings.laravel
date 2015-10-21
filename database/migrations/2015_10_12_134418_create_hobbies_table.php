@@ -12,7 +12,12 @@ class CreateHobbiesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('hobbies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('user_id');
+            $table->integer('interest_id');
+        });
     }
 
     /**
@@ -22,6 +27,6 @@ class CreateHobbiesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('hobbies');
     }
 }

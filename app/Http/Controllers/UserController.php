@@ -94,7 +94,6 @@ class UserController extends Controller
         $avatar = $avatarModel->uploadAvatar($storage, $request->file('file'));
         if ($storage && $avatar) {
             $user = $userModel->create([
-                'remember_token' => $request->get('_token'),
                 'first_name' => $request->get('fname'),
                 'last_name' => $request->get('lname'),
                 'email' => $request->get('email'),
@@ -109,8 +108,9 @@ class UserController extends Controller
                 'user_id' => $user->id,
                 'active' => 1
             ]);
+            Auth::loginUsingId($user->id);
         }
-        return redirect()->route('home');
+        return redirect()->route('user.info', ['id' => $user->id]);
         // todo redirect to profile page
     }
 
@@ -118,6 +118,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @param  User $modelUser
      * @return \Illuminate\Http\Response
      */
     public function show(User $modelUser, $id)
@@ -180,8 +181,8 @@ class UserController extends Controller
                 'required' => 'You have not fill field ":attribute". Please, fill it'
             ]
         );
-//        $remember = $request->has('remember') ? true : null;
-        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
+        $remember = $request->has('remember') ? true : null;
+        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], $remember)) {
             return redirect()->route('user.info', ['id' => Auth::user()->id]);
         }
         return redirect('login')->withErrors('Неправильный email или пароль');

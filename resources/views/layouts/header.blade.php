@@ -31,7 +31,7 @@
                 <li>{!! link_to_route('logout', 'Выйти') !!}</li>
             @else
                 <li>{!! link_to_route('user.create', 'Регистрация') !!}</li>
-                <li>{!! link_to_route('login', 'Войти') !!}</li>
+                <li>{!! link_to_route('user.login', 'Войти') !!}</li>
             @endif
         </ul>
     </div>

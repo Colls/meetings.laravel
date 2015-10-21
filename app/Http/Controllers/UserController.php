@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use Auth; //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Avatar;
+use App\Models\Hobby;
 
 class UserController extends Controller
 {
@@ -111,7 +113,6 @@ class UserController extends Controller
             Auth::loginUsingId($user->id);
         }
         return redirect()->route('user.info', ['id' => $user->id]);
-        // todo redirect to profile page
     }
 
     /**
@@ -121,12 +122,17 @@ class UserController extends Controller
      * @param  User $modelUser
      * @return \Illuminate\Http\Response
      */
-    public function show(User $modelUser, $id)
+    public function show(User $modelUser, Hobby $modelHobby, Friend $modelFriend, $id)
     {
         $user = $modelUser->getUser($id);
-        $interests = null;
-        $friends = null;
-        return view('profile', ['user' => $user, 'interests' => $interests, 'friends' => $friends]);
+        if (!$user->count()) {
+//            return redirect('404');
+            abort('404');
+        }
+        $hobbies = $modelHobby->getHobbies($id);
+        $friends = $modelFriend->getApprovedFriends($id);
+//        dd($friends);
+        return view('profile', ['user' => $user, 'hobbies' => $hobbies, 'friends' => $friends]);
     }
 
     /**
@@ -137,7 +143,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd('i am owner of acc with id ' . $id);
     }
 
     /**
@@ -181,9 +187,8 @@ class UserController extends Controller
                 'required' => 'You have not fill field ":attribute". Please, fill it'
             ]
         );
-        $remember = $request->has('remember') ? true : null;
-        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], $remember)) {
-            return redirect()->route('user.info', ['id' => Auth::user()->id]);
+        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], $request->has('remember'))) {
+            return redirect()->route('user.info', ['id' => Auth::id()]);
         }
         return redirect('login')->withErrors('Неправильный email или пароль');
     }
@@ -191,6 +196,6 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('user.login');
     }
 }

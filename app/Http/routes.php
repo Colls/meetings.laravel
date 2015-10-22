@@ -58,5 +58,10 @@ Route::group(['prefix' => 'user'], function()
 //
 //});
 
+//Event::listen('illuminate.query', function($sql)
+//{
+//    echo($sql) . "<br>";
+//});
+
 
 

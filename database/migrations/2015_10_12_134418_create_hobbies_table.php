@@ -15,8 +15,8 @@ class CreateHobbiesTable extends Migration
         Schema::create('hobbies', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id');
-            $table->integer('interest_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('interest_id')->unsigned();
         });
     }
 

@@ -131,7 +131,6 @@ class UserController extends Controller
         }
         $hobbies = $modelHobby->getHobbies($id);
         $friends = $modelFriend->getApprovedFriends($id);
-//        dd($friends);
         return view('profile', ['user' => $user, 'hobbies' => $hobbies, 'friends' => $friends]);
     }
 

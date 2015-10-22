@@ -36,4 +36,9 @@ class Avatar extends Model
         }
         return false;
     }
+
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

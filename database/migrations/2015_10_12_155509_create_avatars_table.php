@@ -16,7 +16,7 @@ class CreateAvatarsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('avatar');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->boolean('active');
         });
     }

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Mockery\CountValidator\Exception;
+use App\Models\Friend;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -87,5 +88,27 @@ class User extends Model implements AuthenticatableContract,
     {
         $user = $this->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->where('users.id', '=', $id)->get();
         return $user;
+    }
+
+    public function friends()
+    {
+        return $this->hasMany('App\Models\Friend');
+    }
+
+    public function hobbies()
+    {
+        return $this->hasMany('App\Models\Hobby');
+    }
+
+    public function avatars()
+    {
+        return $this->hasMany('App\Models\Avatar');
+    }
+
+    public function test($id)
+    {
+        $user = $this->find($id);
+        $result = $user->friends()->orWhere('friend_id', $id)->where('status', '=', 'approved')->get();
+        dd($result);
     }
 }

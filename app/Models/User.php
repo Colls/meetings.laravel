@@ -39,64 +39,71 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function scopePeople($query)
+    /**
+     * scope for last registered people
+     *
+     * @param $query
+     */
+    public function scopeLast($query)
     {
-        $query->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1);
+        $query->latest('users.created_at')->
+            join('avatars', 'avatars.user_id', '=', 'users.id')->
+            where('active', '=', 1);
     }
+
+    public function scopeWithAvatar($query)
+    {
+        $query->join('avatars', 'avatars.user_id', '=', 'users.id')->
+            where('active', '=', 1);
+    }
+
     /**
      * get all registered boys
+     *
      * @return mixed
      */
     public function getBoys()
     {
-//        $boys = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'm')->where('active', '=', 1)->paginate(8);
-        $boys = $this->people()->where('gender', '=', 'm')->paginate(8);
+        $boys = $this->
+            last()->
+            where('gender', '=', 'm')->
+            paginate(8);
         return $boys;
     }
 
     /**
      * get all registered girls
+     *
      * @return mixed
      */
     public function getGirls()
     {
-//        $girls = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'f')->where('active', '=', 1)->paginate(8);
-        $girls = $this->people()->where('gender', '=', 'f')->paginate(8);
+        $girls = $this->
+            last()->
+            where('gender', '=', 'f')->
+            paginate(8);
         return $girls;
     }
 
     /**
-     * get all registered people ordered by date registration
+     * get all registered people
+     *
      * @return mixed
      */
     public function getLast()
     {
-        $last = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->paginate(8);
+        $last = $this->
+            last()->
+            paginate(8);
         return $last;
-    }
-
-    /**
-     * create personal user folder
-     * @return bool|string
-     */
-    public function createUserStorage()
-    {
-        $folder_name = uniqid();
-        $path = public_path() . '/upload/' . $folder_name;
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
-            return $folder_name;
-        }
-        return false;
     }
 
     public function getUser($id)
     {
-        $user = $this->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->where('users.id', '=', $id)->get();
-//        $user = $this->find($id)->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->get();
-//        $user = $this->find($id);
-//        $user = $user->join('avatars', 'avatars.user_id', '=', 'users.id')->get();
-//        dd($user);
+        $user = $this->
+            withAvatar()->
+            where('users.id', '=', $id)->
+            get();
         return $user;
     }
 
@@ -118,7 +125,8 @@ class User extends Model implements AuthenticatableContract,
     public function getHobbies($id)
     {
         $user = $this->find($id);
-        $result = $user->hobbies()->
+        $result = $user->
+            hobbies()->
             join('interests', 'interests.id', '=', 'interest_id')->
             get();
         return $result;
@@ -127,7 +135,8 @@ class User extends Model implements AuthenticatableContract,
     public function getApprovedFriends($id)
     {
         $user = $this->find($id);
-        $result = $user->friends()->
+        $result = $user->
+            friends()->
             where('status','approved')->
             join('users', 'users.id', '=', 'friends.friend_id')->
             join('avatars', 'avatars.user_id', '=', 'users.id')->

@@ -20,22 +20,6 @@ class Avatar extends Model
      */
     protected $fillable = ['avatar', 'user_id', 'active'];
 
-    /**
-     * upload avatar to user's personal folder
-     * @param $storage
-     * @param $file
-     * @return bool|string
-     */
-    public function uploadAvatar($storage, $file)
-    {
-        if ($file->isValid()) {
-            $newName = uniqid() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path() . '/upload/' . $storage;
-            $file->move($destinationPath, $newName);
-            return $newName;
-        }
-        return false;
-    }
 
     public function owner()
     {

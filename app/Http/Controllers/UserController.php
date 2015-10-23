@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
@@ -10,6 +9,7 @@ use Auth; //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Avatar;
 use App\Models\Hobby;
+use App\Helpers\FileSystemHelper;
 
 class UserController extends Controller
 {
@@ -92,8 +92,8 @@ class UserController extends Controller
                 'unique' => 'Such :attribute already exists'
             ]
         );
-        $storage = $userModel->createUserStorage();
-        $avatar = $avatarModel->uploadAvatar($storage, $request->file('file'));
+        $storage = FileSystemHelper::createUserStorage();
+        $avatar = FileSystemHelper::uploadAvatar($storage, $request->file('file'));
         if ($storage && $avatar) {
             $user = $userModel->create([
                 'first_name' => $request->get('fname'),

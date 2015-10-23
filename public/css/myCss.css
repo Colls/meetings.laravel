@@ -376,10 +376,17 @@ img
 .userinfo > .mymenu > a:hover
 {
     opacity: 1;
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid #34346b;
 }
 
-.content > .friends > div
+.friends > .user
 {
+    height: 290px;
+}
 
+.friends > .user > a
+{
+    display: inline-block;
+    width: 49%;
+    float: left;
 }

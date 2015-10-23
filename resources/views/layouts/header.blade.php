@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/favicon.ico">
 <!--    <title>{{ $title or 'Forget title' }}</title>-->
-    <title>Meetings</title>
+    <title>Сайт знакомств</title>
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">

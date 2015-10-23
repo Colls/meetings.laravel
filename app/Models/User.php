@@ -51,6 +51,11 @@ class User extends Model implements AuthenticatableContract,
             where('active', '=', 1);
     }
 
+    /**
+     * scope for joining user with active avatar
+     *
+     * @param $query
+     */
     public function scopeWithAvatar($query)
     {
         $query->join('avatars', 'avatars.user_id', '=', 'users.id')->
@@ -98,6 +103,12 @@ class User extends Model implements AuthenticatableContract,
         return $last;
     }
 
+    /**
+     * get selected user
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getUser($id)
     {
         $user = $this->
@@ -107,31 +118,20 @@ class User extends Model implements AuthenticatableContract,
         return $user;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function friends()
     {
         return $this->hasMany('App\Models\Friend');
     }
 
-    public function hobbies()
-    {
-        return $this->hasMany('App\Models\Hobby');
-    }
-
-    public function avatars()
-    {
-        return $this->hasMany('App\Models\Avatar');
-    }
-
-    public function getHobbies($id)
-    {
-        $user = $this->find($id);
-        $result = $user->
-            hobbies()->
-            join('interests', 'interests.id', '=', 'interest_id')->
-            get();
-        return $result;
-    }
-
+    /**
+     * get approved friends of selected user
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getApprovedFriends($id)
     {
         $user = $this->find($id);
@@ -144,4 +144,64 @@ class User extends Model implements AuthenticatableContract,
             get();
         return $result;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hobbies()
+    {
+        return $this->hasMany('App\Models\Hobby');
+    }
+
+    /**
+     * get hobbies of selected user
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getHobbies($id)
+    {
+        $user = $this->find($id);
+        $result = $user->
+            hobbies()->
+            join('interests', 'interests.id', '=', 'interest_id')->
+            get();
+        return $result;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function avatars()
+    {
+        return $this->hasMany('App\Models\Avatar');
+    }
+
+    public function getSubscriptions($id)
+    {
+        $user = $this->find($id);
+        $subscriptions = $user->
+            friends()->
+            where('status','subscription')->
+            join('users', 'users.id', '=', 'friends.friend_id')->
+            join('avatars', 'avatars.user_id', '=', 'users.id')->
+            where('active', '=', 1)->
+            get();
+        return $subscriptions;
+    }
+
+    public function getProposals($id)
+    {
+        $user = $this->find($id);
+        $proposals = $user->
+            friends()->
+            where('status','proposal')->
+//            orWhere('status','delete')->
+            join('users', 'users.id', '=', 'friends.friend_id')->
+            join('avatars', 'avatars.user_id', '=', 'users.id')->
+            where('active', '=', 1)->
+            get();
+        return $proposals;
+    }
+
 }

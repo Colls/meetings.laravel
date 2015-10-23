@@ -4,9 +4,9 @@
     @foreach ($user as $u)
         @if (Auth::id() == $u->id)
             <div class="mymenu">
-                {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => $u->id]) !!}
-                <a href="#potential">Найти друга</a>
-                <a href="#requests">Предложения дружбы</a>
+                {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => $u->id]) !!}&nbsp;&nbsp;
+                <a href="#potential">Найти друга</a>&nbsp;&nbsp;
+                {!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => $u->id]) !!}&nbsp;&nbsp;
                 <a href="#messages">Cообщения</a>
             </div>
         @endif
@@ -16,7 +16,6 @@
         <span>Фамилия</span><span>{{ $u->last_name }}</span>
         <span>Email</span><span>{{ $u->email }}</span>
         <span>Дата рождения</span><span>{{ AgeHelper::birthdate($u->birth_date) }}</span>
-<!--        <span>Зарегистрирован</span><span>{{ $u->created_at }}</span>-->
         <span>Зарегистрирован</span><span>{{ AgeHelper::birthdate($u->created_at, true) }}</span>
         <span>Список интересов:</span>
                 <span>

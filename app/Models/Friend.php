@@ -28,4 +28,32 @@ class Friend extends Model
 //        // "SELECT (user_id + friend_id - 6) id FROM friends WHERE `status`='approved' AND (friend_id='6' OR user_id='6')" - id друзей
 //    }
 
+    public function cancelFriendship($id, $fid)
+    {
+        dd($id, $fid);
+        $this->where('user_id', $id)->where('friend_id', $fid)->delete();
+        $this->where('friend_Id', $id)->where('user_id', $fid)->delete();
+    }
+
+    public function approveFriendship($id, $fid)
+    {
+        $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'approved']);
+        $this->where('friend_Id', $id)->where('user_id', $fid)->update(['status' => 'approved']);
+    }
+
+    public function denyFriendship($id, $fid)
+    {
+        $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'denied']);
+    }
+
+    public function removeFriendship($id, $fid)
+    {
+        $this->cancelFriendship($id, $fid);
+    }
+
+    public function addFriendship()
+    {
+
+    }
+
 }

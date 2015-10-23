@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="form-group">
-        {!! Form::label('remember', 'Запомнить', ['class' => 'control-label col-xs-2']) !!}
+        {!! Form::label('remember', 'Оставаться в системе', ['class' => 'control-label col-xs-2']) !!}
         <div class="col-xs-8">
             {!! Form::checkbox('remember', 1) !!}
         </div>

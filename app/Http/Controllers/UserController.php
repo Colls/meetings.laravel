@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
+use App\Helpers\FileSystemHelper;
 use Auth; //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Avatar;
-use App\Models\Hobby;
-use App\Helpers\FileSystemHelper;
+use App\Models\Friend;
 
 class UserController extends Controller
 {
@@ -168,11 +168,22 @@ class UserController extends Controller
         //
     }
 
+    /**
+     * show login form
+     *
+     * @return \Illuminate\View\View
+     */
     public function login()
     {
         return view('login');
     }
 
+    /**
+     * authenticate user
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function auth(Request $request)
     {
         $this->validate(
@@ -196,5 +207,49 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('user.login');
+    }
+
+    public function subscriptionFriends(User $modelUser, $id)
+    {
+        $friends = $modelUser->getSubscriptions($id);
+        return view('friends', ['friends' => $friends, 'notice' => 'Заявок нет', 'destination' => true]);
+    }
+
+    public function proposalFriends(User $modelUser, $id)
+    {
+        $friends = $modelUser->getProposals($id);
+        return view('friends', ['friends' => $friends, 'notice' => 'Предложений дружбы  нет', 'destination' => false]);
+    }
+
+    public function cancelFriendship(Request $request, Friend $modelFriend, $id)
+    {
+        $fid = $request->get('fid');
+        $modelFriend->cancelFriendship($id, $fid);
+        return redirect()->route('user.subscriptions', ['id' => $id]);
+    }
+
+    public function cancelFriendshipAlt(Friend $modelFriend, $id, $fid)
+    {
+        $modelFriend->cancelFriendship($id, $fid);
+        return redirect()->route('user.subscriptions', ['id' => $id]);
+    }
+
+    public function approveFriendship(Request $request, Friend $modelFriend, $id)
+    {
+        $fid = $request->get('fid');
+        $modelFriend->approveFriendship($id, $fid);
+        return redirect()->route('user.proposals', ['id' => $id]);
+    }
+
+    public function denyFriendship(Request $request, Friend $modelFriend, $id)
+    {
+        $fid = $request->get('fid');
+        $modelFriend->denyFriendship($id, $fid);
+        return redirect()->route('user.proposals', ['id' => $id]);
+    }
+
+    public function addFriend()
+    {
+
     }
 }

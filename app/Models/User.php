@@ -39,13 +39,18 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function scopePeople($query)
+    {
+        $query->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1);
+    }
     /**
      * get all registered boys
      * @return mixed
      */
     public function getBoys()
     {
-        $boys = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'm')->where('active', '=', 1)->paginate(8);
+//        $boys = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'm')->where('active', '=', 1)->paginate(8);
+        $boys = $this->people()->where('gender', '=', 'm')->paginate(8);
         return $boys;
     }
 
@@ -55,7 +60,8 @@ class User extends Model implements AuthenticatableContract,
      */
     public function getGirls()
     {
-        $girls = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'f')->where('active', '=', 1)->paginate(8);
+//        $girls = $this->latest('users.created_at')->join('avatars', 'avatars.user_id', '=', 'users.id')->where('gender', '=', 'f')->where('active', '=', 1)->paginate(8);
+        $girls = $this->people()->where('gender', '=', 'f')->paginate(8);
         return $girls;
     }
 
@@ -87,6 +93,10 @@ class User extends Model implements AuthenticatableContract,
     public function getUser($id)
     {
         $user = $this->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->where('users.id', '=', $id)->get();
+//        $user = $this->find($id)->join('avatars', 'avatars.user_id', '=', 'users.id')->where('active', '=', 1)->get();
+//        $user = $this->find($id);
+//        $user = $user->join('avatars', 'avatars.user_id', '=', 'users.id')->get();
+//        dd($user);
         return $user;
     }
 
@@ -105,10 +115,24 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Models\Avatar');
     }
 
-    public function test($id)
+    public function getHobbies($id)
     {
         $user = $this->find($id);
-        $result = $user->friends()->orWhere('friend_id', $id)->where('status', '=', 'approved')->get();
-        dd($result);
+        $result = $user->hobbies()->
+            join('interests', 'interests.id', '=', 'interest_id')->
+            get();
+        return $result;
+    }
+
+    public function getApprovedFriends($id)
+    {
+        $user = $this->find($id);
+        $result = $user->friends()->
+            where('status','approved')->
+            join('users', 'users.id', '=', 'friends.friend_id')->
+            join('avatars', 'avatars.user_id', '=', 'users.id')->
+            where('active', '=', 1)->
+            get();
+        return $result;
     }
 }

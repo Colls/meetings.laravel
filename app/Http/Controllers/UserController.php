@@ -122,15 +122,15 @@ class UserController extends Controller
      * @param  User $modelUser
      * @return \Illuminate\Http\Response
      */
-    public function show(User $modelUser, Hobby $modelHobby, Friend $modelFriend, $id)
+    public function show(User $modelUser, $id)
     {
         $user = $modelUser->getUser($id);
         if (!$user->count()) {
 //            return redirect('404');
             abort('404');
         }
-        $hobbies = $modelHobby->getHobbies($id);
-        $friends = $modelFriend->getApprovedFriends($id);
+        $hobbies = $modelUser->getHobbies($id);
+        $friends = $modelUser->getApprovedFriends($id);
         return view('profile', ['user' => $user, 'hobbies' => $hobbies, 'friends' => $friends]);
     }
 

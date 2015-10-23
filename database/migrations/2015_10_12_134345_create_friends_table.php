@@ -17,6 +17,7 @@ class CreateFriendsTable extends Migration
             $table->timestamps();
             $table->integer('user_id')->unsigned();
             $table->integer('friend_id')->unsigned();
+            $table->integer('initiator_id')->unsigned();
             $table->string('status');
         });
     }

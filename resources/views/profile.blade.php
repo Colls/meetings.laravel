@@ -7,7 +7,7 @@
                 {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => $u->id]) !!}&nbsp;&nbsp;
                 <a href="#potential">Найти друга</a>&nbsp;&nbsp;
                 {!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => $u->id]) !!}&nbsp;&nbsp;
-                <a href="#messages">Cообщения</a>
+                {!! link_to_route('user.dialogs', 'Диалоги', ['id' => $u->id]) !!}&nbsp;&nbsp;
             </div>
         @endif
     <img src = "/upload/{{ $u->storage }}/{{ $u->avatar }}">
@@ -28,11 +28,17 @@
                     @endif
                 </span>
                 @if (Auth::id() != $u->id)
+                    @if($friendshipExist)
+                        <span>
+                            {!! link_to_route('remove.friendship', 'Удалить из друзей', ['id' => Auth::id(), 'fid' => $u->id]) !!}
+                        </span>
+                    @else
+                        <span>
+                            {!! link_to_route('add.friendship', 'Добавить в друзья', ['id' => Auth::id(), 'fid' => $u->id]) !!}
+                        </span>
+                    @endif
                     <span>
-                        <a href="#addfriend">Добавить в друзья</a>
-                    </span>
-                    <span>
-                        <a href="#sendmessage">Написать</a>
+                        {!! link_to_route('message.create', 'Написать', ['id' => Auth::id(), 'fid' => $u->id]) !!}
                     </span>
                 @endif
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.simple_layout')
 @section('content')
-{!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => Auth::id()]) !!}&nbsp;&nbsp;&nbsp;
-{!! link_to_route('user.proposals', 'Предложения дружбы', ['id' => Auth::id()]) !!}
+{!! link_to_route('user.subscriptions', 'Я предлагаю дружбу...', ['id' => Auth::id()]) !!}&nbsp;&nbsp;&nbsp;
+{!! link_to_route('user.proposals', 'Мне предлагают дружбу...', ['id' => Auth::id()]) !!}&nbsp;&nbsp;&nbsp;
 <div class="friends">
     @if($friends->count())
         @foreach($friends as $f)

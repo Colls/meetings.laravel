@@ -129,9 +129,10 @@ class UserController extends Controller
 //            return redirect('404');
             abort('404');
         }
+        $friendshipExist = $modelUser->friendshipExists(Auth::id(), $id);
         $hobbies = $modelUser->getHobbies($id);
         $friends = $modelUser->getApprovedFriends($id);
-        return view('profile', ['user' => $user, 'hobbies' => $hobbies, 'friends' => $friends]);
+        return view('profile', ['user' => $user, 'hobbies' => $hobbies, 'friends' => $friends, 'friendshipExist' => $friendshipExist]);
     }
 
     /**
@@ -209,18 +210,53 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
+    /**
+     * show list of my friendship queries (i want to add this person to friends, i'm subscribed on this person, person has not approved my query yet)
+     *
+     * @param User $modelUser
+     * @param $id
+     * @return \Illuminate\View\View
+     */
     public function subscriptionFriends(User $modelUser, $id)
     {
         $friends = $modelUser->getSubscriptions($id);
         return view('friends', ['friends' => $friends, 'notice' => 'Заявок нет', 'destination' => true]);
     }
 
+    /**
+     * show list of my friendship offers (someone want to add me into friends)
+     *
+     * @param User $modelUser
+     * @param $id
+     * @return \Illuminate\View\View
+     */
     public function proposalFriends(User $modelUser, $id)
     {
         $friends = $modelUser->getProposals($id);
-        return view('friends', ['friends' => $friends, 'notice' => 'Предложений дружбы  нет', 'destination' => false]);
+        return view('friends', ['friends' => $friends, 'notice' => 'Предложений нет', 'destination' => false]);
     }
 
+    /**
+     * show list of my denied friends (i don't want to add this person to friends, person still subscribed on me)
+     *
+     * @param User $modelUser
+     * @param $id
+     * @return \Illuminate\View\View
+     */
+//    public function deniedFriends(User $modelUser, $id)
+//    {
+//        $friends = $modelUser->getDenied($id);
+//        return view('friends', ['friends' => $friends, 'notice' => 'Подписчиков нет', 'destination' => false]);
+//    }
+
+    /**
+     * withdraw my friendship offer (i've subscribed on this person already and i wan't to refuse )
+     *
+     * @param Request $request
+     * @param Friend $modelFriend
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function cancelFriendship(Request $request, Friend $modelFriend, $id)
     {
         $fid = $request->get('fid');
@@ -228,12 +264,29 @@ class UserController extends Controller
         return redirect()->route('user.subscriptions', ['id' => $id]);
     }
 
-    public function cancelFriendshipAlt(Friend $modelFriend, $id, $fid)
-    {
-        $modelFriend->cancelFriendship($id, $fid);
-        return redirect()->route('user.subscriptions', ['id' => $id]);
-    }
+    /**
+     *
+     *
+     * @param Friend $modelFriend
+     * @param $id
+     * @param $fid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+//    public function cancelFriendshipAlt(Friend $modelFriend, $id, $fid)
+//    {
+//        dd($id, $fid);
+//        $modelFriend->cancelFriendship($id, $fid);
+//        return redirect()->route('user.subscriptions', ['id' => $id]);
+//    }
 
+    /**
+     * approve friendship offer
+     *
+     * @param Request $request
+     * @param Friend $modelFriend
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function approveFriendship(Request $request, Friend $modelFriend, $id)
     {
         $fid = $request->get('fid');
@@ -241,6 +294,14 @@ class UserController extends Controller
         return redirect()->route('user.proposals', ['id' => $id]);
     }
 
+    /**
+     * deny friendship offer, person adds to subscribers list
+     *
+     * @param Request $request
+     * @param Friend $modelFriend
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function denyFriendship(Request $request, Friend $modelFriend, $id)
     {
         $fid = $request->get('fid');
@@ -248,8 +309,31 @@ class UserController extends Controller
         return redirect()->route('user.proposals', ['id' => $id]);
     }
 
-    public function addFriend()
+    public function addFriendship(Request $request, Friend $modelFriend, $id)
     {
-
+        $fid = $request->get('fid');
+        $modelFriend->addFriendship($id, $fid);
+        return redirect()->back();
     }
+
+    public function removeFriendship(Request $request, Friend $modelFriend, $id)
+    {
+        $fid = $request->get('fid');
+        $modelFriend->removeFriendship($id, $fid);
+        return redirect()->back();
+    }
+
+    public function dialogs(User $modelUser, $id)
+    {
+        $dialogs = $modelUser->getDialogs($id);
+//        dd($dialogs);
+        return view('dialogs', ['dialogs' => $dialogs]);
+    }
+
+//    public function chat(Request $request, $id, User $modelUser)
+//    {
+//        $fid = $request->get('fid');
+//        $chat = $modelUser->getMessages($id, $fid);
+//        return view('chat', ['chat' => $chat, 'id' => Auth::id(), 'fid' => $fid]);
+//    }
 }

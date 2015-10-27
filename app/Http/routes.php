@@ -39,10 +39,16 @@ Route::group(['prefix' => 'user'], function()
         post('/{id}/edit',['as' => 'user.update','uses' => 'UserController@update']);
         get('/{id}/subscriptions',['as' => 'user.subscriptions','uses' => 'UserController@subscriptionFriends']);
         get('/{id}/subscriptions/cancel',['as' => 'cancel.friendship','uses' => 'UserController@cancelFriendship']);
-//        get('/{id}/subscriptions/{$fid}/cancel',['as' => 'cancel.friendship','uses' => 'UserController@cancelFriendshipAlt']);
+//        get('/{id}/cancel/{$fid}',['as' => 'cancel.friendship','uses' => 'UserController@cancelFriendshipAlt']);
         get('/{id}/proposals',['as' => 'user.proposals','uses' => 'UserController@proposalFriends']);
-        get('/{id}/subscriptions/approve',['as' => 'approve.friendship','uses' => 'UserController@approveFriendship']);
-        get('/{id}/subscriptions/deny',['as' => 'deny.friendship','uses' => 'UserController@denyFriendship']);
+        get('/{id}/proposals/approve',['as' => 'approve.friendship','uses' => 'UserController@approveFriendship']);
+        get('/{id}/proposals/deny',['as' => 'deny.friendship','uses' => 'UserController@denyFriendship']);
+//        get('/{id}/denied',['as' => 'user.denied','uses' => 'UserController@deniedFriends']);
+        get('/{id}/add',['as' => 'add.friendship','uses' => 'UserController@addFriendship']);
+        get('/{id}/remove',['as' => 'remove.friendship','uses' => 'UserController@removeFriendship']);
+        get('/{id}/dialogs',['as' => 'user.dialogs','uses' => 'UserController@dialogs']);
+        get('/{id}/chat',['as' => 'message.create','uses' => 'MessageController@create']);
+        post('/{id}/chat',['as' => 'message.store','uses' => 'MessageController@store']);
 
     });
 });

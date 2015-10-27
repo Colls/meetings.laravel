@@ -30,7 +30,6 @@ class Friend extends Model
 
     public function cancelFriendship($id, $fid)
     {
-        dd($id, $fid);
         $this->where('user_id', $id)->where('friend_id', $fid)->delete();
         $this->where('friend_Id', $id)->where('user_id', $fid)->delete();
     }
@@ -41,9 +40,20 @@ class Friend extends Model
         $this->where('friend_Id', $id)->where('user_id', $fid)->update(['status' => 'approved']);
     }
 
+    /**
+     * can use this prototype if we wan't to extend friendship with different statuses
+     *
+     * @param $id
+     * @param $fid
+     */
+//    public function denyFriendship($id, $fid)
+//    {
+//        $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'denied']);
+//    }
+
     public function denyFriendship($id, $fid)
     {
-        $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'denied']);
+        $this->cancelFriendship($id, $fid);
     }
 
     public function removeFriendship($id, $fid)
@@ -51,9 +61,10 @@ class Friend extends Model
         $this->cancelFriendship($id, $fid);
     }
 
-    public function addFriendship()
+    public function addFriendship($id, $fid)
     {
-
+        $this->create(['user_id' => $id, 'friend_id' => $fid, 'initiator_id' => $id, 'status' => 'subscription']);
+        $this->create(['user_id' => $fid, 'friend_id' => $id, 'initiator_id' => $id, 'status' => 'proposal']);
     }
 
 }

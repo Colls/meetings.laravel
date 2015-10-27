@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call('InterestsSeeder');
         $this->call('HobbiesSeeder');
         $this->call('FriendsSeeder');
+        $this->call('DialogsSeeder');
+        $this->call('MessagesSeeder');
 
         Model::reguard();
     }

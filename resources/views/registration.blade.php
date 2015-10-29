@@ -12,7 +12,7 @@
     <div class="form-group">
         {!! Form::label('lname', 'Фамилия', ['class' => 'control-label col-xs-2']) !!}
         <div class="col-xs-8">
-            {!! Form::text('lname', null, ['class' => 'form-control', 'placeholder' => 'Ваше имя...']) !!}
+            {!! Form::text('lname', null, ['class' => 'form-control', 'placeholder' => 'Ваша фамилия...']) !!}
         </div>
     </div>
     <div class="form-group">

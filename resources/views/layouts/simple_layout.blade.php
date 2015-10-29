@@ -1,5 +1,6 @@
 @include('layouts.header')
-<div class="content">
+<!-- Main Content -->
+<div class="main_container container">
     @yield('content')
 </div>
 @if($errors->any())

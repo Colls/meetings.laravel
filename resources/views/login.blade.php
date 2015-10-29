@@ -1,7 +1,7 @@
 @extends('layouts.simple_layout')
 @section('content')
-<div class="registration container">
-    <h2 class="text-center">Вход на сайт</h2>
+<div class="form registration col-lg-10 col-lg-offset-1">
+    <h3>Вход на сайт</h3>
     {!! Form::open(['action' => 'UserController@login', 'class' => 'form-horizontal']) !!}
     <div class="form-group">
         {!! Form::label('email', 'Email', ['class' => 'control-label col-xs-2']) !!}
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="form-group">
-        {!! Form::label('remember', 'Оставаться в системе', ['class' => 'control-label col-xs-2']) !!}
+        {!! Form::label('remember', 'Запомнить', ['class' => 'control-label col-xs-2']) !!}
         <div class="col-xs-8">
             {!! Form::checkbox('remember', 1) !!}
         </div>

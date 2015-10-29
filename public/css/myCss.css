@@ -1,168 +1,52 @@
-*
+.main_container
 {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    color: #34346b !important;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-a
-{
-    color: #5d1429 !important;
-}
-
-body
-{
-    background: url(../img/bg2.gif);
-}
-
-body > div, header
-{
-
-    margin: 10px auto;
-    width: 980px;
-    background: #fffafa;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.top
-{
-    height: 80px;
-    line-height: 80px;
-    position: relative;
-    background:#fffafa no-repeat url(../img/logo.png) 10px 50%;
-}
-
-.top > .title
-{
-    position: relative;
-    top: 7px;
-    left: 62px;
-    font-size: 36px;
-    font-weight: bolder;
-    text-decoration: none;
-}
-
-.hidden
-{
-    display: none;
-}
-
-.menu
-{
-    position: absolute;
-    list-style-type: none;
-    top: 0;
-    right: 0;
-}
-
-.menu > li > ul
-{
-    list-style-type: none;
-}
-
-.menu > li
-{
-    float: left;
-    margin: 10px;
-}
-
-.menu > li > a
-{
-    display: block;
-    font-size: 16px;
-    text-decoration: underline !important;
-}
-
-header
-{
-    background: url(../img/people.jpg) 0 -1px;
-    height: 169px;
-}
-
-.content
-{
+    min-height: 450px;
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
     text-align: center;
-    min-height: 400px;
+    width: 100%;
 }
 
-.content > title
+.clear
 {
-    height: 25px;
-    line-height: 25px;
-    font-size: 18px;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    box-sizing: content-box;
-    padding: 10px 30px;
-    background: linear-gradient(to bottom, #f5f0f5, #faeeff);
-}
-
-.content > .text
-{
-    text-align: justify;
-    padding:10px;
-}
-
-.content > .center
-{
-    text-align: center;
-}
-
-footer
-{
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    background: #efe9fb;
-    background: linear-gradient(to bottom, #efe9fb, #fff9fb);
-    font-size: 11px;
+    clear: both;
 }
 
 .user
 {
+    font-size: 16px;
     background: #f0f0f5;
     display: inline-block;
     padding: 5px;
     margin: 10px;
     border: 1px solid white;
     border-radius: 5px;
-    width: 205px;
-    /*height: 280px;*/
-    /*overflow-y: hidden;*/
+    width: 220px;
+    min-height: 265px;
+    /*max-height: 305px;*/
     font-weight: bold;
     opacity: 0.8;
 }
 
+.user > div > img
+{
+    height: 265px;
+    width: 100%;
+}
+
+.user > p
+{
+    color: #34346b;
+    padding-top: 10px;
+}
+
 .user:hover
 {
-    opacity: 1.0;
-    border: 1px solid silver;
+    opacity: 1;
+    border: 1px solid lightgray;
 }
 
-.user > div
-{
-    display: inline-block;
-    background: linear-gradient(to bottom, #fadaee, #e5e5ee) ;
-    width: 170px;
-    height: 200px;
-    line-height: 200px;
-    vertical-align: middle;
-    border-radius: 5px;
-    border: 1px solid #eee;
-    margin: 10px auto;
-}
-
-.user > div > img
+.user > img
 {
     position: relative;
     margin: auto;
@@ -172,13 +56,18 @@ footer
     border-radius: 5px;
 }
 
+.user > .text-center
+{
+    margin: 0;
+}
+
 .user > a
 {
+    font-weight: normal;
     display: inline-block;
     background: linear-gradient(to bottom, #fadaee, #f2eeff);
-    width: 195px;
-    height: 25px;
-    line-height: 25px;
+    width: 90%;
+    height: 30px;
     text-decoration: none;
     border: 1px solid #e0ddff;
     border-radius: 5px;
@@ -186,90 +75,55 @@ footer
     color: #5d1429;
 }
 
-.user > a:hover
+.form > h3
+{
+    margin: 20px auto;
+}
+
+.form > form > div > label
+{
+    font-weight: bolder;
+}
+
+.user_photo
+{
+    padding: 15px;
+}
+
+.my_menu
+{
+    text-align: right;
+    padding: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.my_menu > a
 {
     display: inline-block;
-    color: #ae2c42 !important;
-    background: linear-gradient(to bottom, #ffdaee, #faeeff);
+    margin: 5px 15px;
+    opacity: 0.8;
+    color: #34346b;
 }
 
-.clear
+.my_menu > a:hover
 {
-    clear: both;
-}
-
-#paginator *
-{
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0;
-    padding: 3px;
-    text-decoration: none;
-    opacity: 0.6;
-}
-
-#paginator span
-{
-    font-size: 20px;
-    font-weight: bold;
-    padding: 5px;
     opacity: 1;
 }
 
-.friends > .user
+.user_info > div > img
 {
-    height: 290px;
-}
-
-.friends > .user > a
-{
-    display: inline-block;
-    width: 49%;
-    float: left;
-}
-
-.backToPrevious
-{
-    display: block;
-    margin: 10px;
-}
-
-.hidden
-{
-    display: none !important;
-}
-
-.registration
-{
-    padding: 10px;
-}
-
-.registration .btn
-{
-    color: #fff !important;
-}
-
-.userinfo
-{
-    text-align: left;
-    position: relative;
-    padding-top: 35px;
-    height: 510px;
-}
-
-img
-{
+    width: 400px;
+    max-width: 100%;
     border-radius: 5px;
+    border: 1px solid lightgray;
 }
 
-.userinfo > img
+.user_info > .data > span:nth-child(2n-1)
 {
-    width: 300px;
-    float: left;
-    margin:10px 10px 10px 30px;
+    font-weight: bold;
 }
 
-.userinfo > .data
+.user_info > .data
 {
     float: left;
     width: 420px;
@@ -279,211 +133,167 @@ img
     min-height: 450px;
 }
 
-.userinfo > .data span:nth-child(2n-1)
+.user_info > .data > span
 {
     display: inline-block;
-    font-size: 15px;
-    font-weight: bold;
+}
+
+.user_info > .data > span, .user_info > .data > div > ul
+{
+    font-size: 16px;
     width: 160px;
     padding: 5px 10px;
     vertical-align: top;
     margin: 8px;
 }
-
-.userinfo > .data span:nth-child(2n)
+.user_info > .data > div > ul
 {
-    display: inline-block;
-    font-size: 15px;
-    width: 160px;
-    padding: 5px 10px;
-    vertical-align: top;
-    margin: 8px;
+    list-style-type: none;
 }
 
-.userinfo > .data > span > a
+.user_info > .data > div
 {
     display: inline-block;
-    background: linear-gradient(to bottom, #fadaee, #f2eeff);
-    width: 150px;
-    height: 25px;
-    line-height: 25px;
-    text-decoration: none;
-    border: 1px solid #e0ddff;
+}
+
+.user_info > .data > span > a
+{
+    display: inline-block;
+    border: 1px solid lightgray;
     border-radius: 5px;
-    margin: 10px auto;
+    margin-top: 30px;
+    padding: 5px;
+    font-weight: normal;
+    width: 150px;
+    text-decoration: none;
     color: #5d1429;
-    text-align: center;
-    font-weight: bold;
+    background: linear-gradient(to bottom, #fadaee, #f2eeff);
+    opacity: 0.9;
 }
 
-.userinfo > .friends
+.user_info > .data > span > a:hover
 {
-    float: left;
-    width: 160px;
-    font-weight: bold;
-    font-size: 15px;
-    text-align: center;
-    border: none;
-    background: #f7f3fe;
-    margin: 10px;
-    max-height: 450px;
+    opacity: 1;
+    border: 1px solid #808080;
+}
+
+.user_info > .friends
+{
     overflow-y: auto;
     overflow-x: hidden;
+    margin-left: 105px;
+    max-height: 450px;
 }
 
-.userinfo > .friends > span
+.user_info > .friends > .friend
 {
-    float: left;
-    width: 160px;
+    font-size: 16px;
+    background: #f0f0f5;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 220px;
+    min-height: 265px;
+    max-height: 345px;
     font-weight: bold;
-    font-size: 15px;
-    text-align: center;
-    background: #f7f3fe;
-    box-sizing: border-box;
-    margin-top: 10px;
 }
 
+.user_info > .friends > .friend img
+{
+    height: 80%;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-.userinfo > .friends > a
+.user_info > .friends > .friend > a
 {
     display: block;
     margin: 10px;
+    color: #34346b;
 }
 
-.userinfo > .friends > a > img
+.dialogs
 {
-    width: 80px;
-    margin: 10px;
+    max-height: 450px;
+    overflow-y: auto;
 }
 
-.userinfo > .mymenu
+.dialogs .dialog
 {
-    font-size: 16px;
-    position: absolute;
-    right: 0;
-    padding-right: 25px;
-    top: 5px;
-}
-
-.userinfo > .mymenu > a
-{
-    text-decoration: none;
-    margin-right: 10px;
-    opacity: 0.7;
-    border-bottom: 1px solid transparent;
-}
-
-.userinfo > .mymenu > a:hover
-{
-    opacity: 1;
-    border-bottom: 1px solid #34346b;
-}
-
-.friends > .user
-{
-    height: 290px;
-}
-
-.friends > .user > a
-{
-    display: inline-block;
-    width: 49%;
-    float: left;
-}
-/**/
-
-.comment
-{
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #d5d5d5;
+    height: 150px;
+    opacity: 0.8;
     padding: 5px;
 }
 
-.chat, .dialog
+.dialogs .dialog > a:nth-of-type(2), .dialogs .dialog > a:nth-of-type(3)
 {
-    margin: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 400px;
-
+    display: inline-block;
+    height: 100%;
+    float: left;
+    color: #5d1429;
+    text-decoration: none;
 }
 
-.chat *
+.dialogs .dialog > a:nth-of-type(2)
 {
+    width: 85%;
+    padding-top: 55px;
+}
+
+.dialogs .dialog > a:nth-of-type(3)
+{
+    width: 3%;
+}
+
+.dialogs .dialog img
+{
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.dialogs .dialog:hover
+{
+    opacity: 1;
+    background: #fadaee;
+}
+
+.chat
+{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px 0;
+    overflow-y: auto;
+    height: 450px;
+    margin-bottom: 5px;
+}
+
+.chat .comment
+{
+    margin: 0;
+    background: #F6E6EA;
+    padding: 20px;
+}
+
+.chat > div:nth-of-type(2n-1)
+{
+    font-weight: bold;
+    text-align: left;
+    margin: auto 10px;
+}
+
+.chat > div:nth-of-type(2n)
+{
+    font-style: italic;
     text-align: justify;
 }
 
-.chat a
+.chat-form textarea
 {
-    display: inline-block;
-    margin: 5px;
-    font-weight: bold;
-}
-
-.dialog a
-{
-    display: block;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid #e0ddff;
-    text-decoration: none;
-    border-radius: 5px;
-    color: #5d1429;
-}
-
-.dialog a:hover
-{
-    color: #ae2c42;
-    background: linear-gradient(to bottom, #ffdaee, #faeeff);
-}
-
-.currentDialog
-{
-    border: 1px solid #e0ddff;
-    height: 140px;
-}
-
-.currentDialog:hover
-{
-    background: #FFF8DC;
-}
-
-.dialog a
-{
-    display: block;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid #e0ddff;
-    text-decoration: none;
-    border-radius: 5px;
-    color: #5d1429;
-    text-align: center;
-    float: left;
-}
-
-.dialog a > img
-{
-    width: 80px;
-    float: left;
-    border: 1px solid #e0ddff;
-    border-radius: 5px;
-}
-
-.dialog a:first-of-type
-{
-    width: 80px;
-    border: none;
-    padding: 0;
-}
-
-.dialog a:nth-of-type(2)
-{
-    width: 747px;
-}
-
-.dialog a:last-of-type
-{
-    width: 80px;
-    float: right;
+    height: 150px;
 }

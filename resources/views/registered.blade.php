@@ -1,16 +1,18 @@
 @extends('layouts.simple_layout')
 @section('content')
-<div class="registered">
+<div class="row people">
+    <h3>Всего зарегистрировано {{ $gender }}: {{ $registered->count() }}</h3>
     @foreach ($registered as $user)
-<!--    --><?php //dd($user); ?>
     <div class="user">
         <div>
             <img src = "upload/{{ $user->storage }}/{{ $user->avatar }}">
         </div>
-        {{ $user->first_name }}, {{ AgeHelper::age($user->birth_date) }}
+        <p class="text-center">{{ $user->first_name }}, {{ AgeHelper::age($user->birth_date) }}</p>
         {!! link_to_route('user.info', 'Подробнее', ['id' => $user->id]) !!}
     </div>
     @endforeach
+    <div class="clear"></div>
+    {!! $registered->render() !!}
 </div>
-{!! $registered->render() !!}
+
 @stop

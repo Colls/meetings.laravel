@@ -1,7 +1,7 @@
 @extends('layouts.simple_layout')
 @section('content')
-<div class="registration container">
-    <h2 class="text-center">Регистрация</h2>
+<div class="form registration col-lg-10 col-lg-offset-1">
+    <h3>Регистрация</h3>
     {!! Form::open(['action' => 'UserController@store', 'files' => true, 'class' => 'form-horizontal']) !!}
     <div class="form-group">
         {!! Form::label('fname', 'Имя', ['class' => 'control-label col-xs-2']) !!}

@@ -30,7 +30,7 @@ class UserController extends Controller
     public function boys(User $modelUser)
     {
         $registered = $modelUser->getBoys();
-        return view('registered', ['registered' => $registered]);
+        return view('registered', ['registered' => $registered, 'gender' => 'парней']);
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
     public function girls(User $modelUser)
     {
         $registered = $modelUser->getGirls();
-        return view('registered', ['registered' => $registered]);
+        return view('registered', ['registered' => $registered, 'gender' => 'девушек']);
     }
 
     /**

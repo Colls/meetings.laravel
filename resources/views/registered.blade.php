@@ -1,7 +1,7 @@
 @extends('layouts.simple_layout')
 @section('content')
 <div class="row people">
-    <h3>Всего зарегистрировано {{ $gender }}: {{ $registered->count() }}</h3>
+    <h3>Всего зарегистрировано {{ $gender }}: {{ $registered->total()}}</h3>
     @foreach ($registered as $user)
     <div class="user">
         <div>

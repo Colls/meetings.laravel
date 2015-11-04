@@ -4,54 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-//use App\Http\Controllers\Controller;
 use App\Helpers\FileSystemHelper;
 use Auth; //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Avatar;
-use App\Models\Friend;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('welcome');
-    }
-
-    /**
-     * @param User $modelUser
-     * @return \Illuminate\View\View
-     */
-    public function boys(User $modelUser)
-    {
-        $registered = $modelUser->getBoys();
-        return view('registered', ['registered' => $registered, 'gender' => 'парней']);
-    }
-
-    /**
-     * @param User $modelUser
-     * @return \Illuminate\View\View
-     */
-    public function girls(User $modelUser)
-    {
-        $registered = $modelUser->getGirls();
-        return view('registered', ['registered' => $registered, 'gender' => 'девушек']);
-    }
-
-    /**
-     * @param User $modelUser
-     * @return \Illuminate\View\View
-     */
-    public function last(User $modelUser)
-    {
-        $registered = $modelUser->getLast();
-        return view('registered', ['registered' => $registered]);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -170,16 +129,6 @@ class UserController extends Controller
     }
 
     /**
-     * show login form
-     *
-     * @return \Illuminate\View\View
-     */
-    public function login()
-    {
-        return view('login');
-    }
-
-    /**
      * authenticate user
      *
      * @param Request $request
@@ -201,13 +150,7 @@ class UserController extends Controller
         if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], $request->has('remember'))) {
             return redirect()->route('user.info', ['id' => Auth::id()]);
         }
-        return redirect('login')->withErrors('Неправильный email или пароль');
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('user.login');
+        return redirect('login')->withInput(['email' => $request->get('email'), 'remember' => $request->get('remember')])->withErrors('Неправильный email или пароль');
     }
 
     /**
@@ -217,7 +160,7 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function subscriptionFriends(User $modelUser, $id)
+    public function subscriptions(User $modelUser, $id)
     {
         $friends = $modelUser->getSubscriptions($id);
         return view('friends', ['friends' => $friends, 'notice' => 'Заявок нет', 'destination' => true]);
@@ -230,7 +173,7 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function proposalFriends(User $modelUser, $id)
+    public function proposals(User $modelUser, $id)
     {
         $friends = $modelUser->getProposals($id);
         return view('friends', ['friends' => $friends, 'notice' => 'Предложений нет', 'destination' => false]);
@@ -243,90 +186,15 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\View\View
      */
-//    public function deniedFriends(User $modelUser, $id)
-//    {
-//        $friends = $modelUser->getDenied($id);
-//        return view('friends', ['friends' => $friends, 'notice' => 'Подписчиков нет', 'destination' => false]);
-//    }
-
-    /**
-     * withdraw my friendship offer (i've subscribed on this person already and i wan't to refuse )
-     *
-     * @param Request $request
-     * @param Friend $modelFriend
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function cancelFriendship(Request $request, Friend $modelFriend, $id)
+    public function denied(User $modelUser, $id)
     {
-        $fid = $request->get('fid');
-        $modelFriend->cancelFriendship($id, $fid);
-        return redirect()->route('user.subscriptions', ['id' => $id]);
-    }
-
-    /**
-     *
-     *
-     * @param Friend $modelFriend
-     * @param $id
-     * @param $fid
-     * @return \Illuminate\Http\RedirectResponse
-     */
-//    public function cancelFriendshipAlt(Friend $modelFriend, $id, $fid)
-//    {
-//        dd($id, $fid);
-//        $modelFriend->cancelFriendship($id, $fid);
-//        return redirect()->route('user.subscriptions', ['id' => $id]);
-//    }
-
-    /**
-     * approve friendship offer
-     *
-     * @param Request $request
-     * @param Friend $modelFriend
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function approveFriendship(Request $request, Friend $modelFriend, $id)
-    {
-        $fid = $request->get('fid');
-        $modelFriend->approveFriendship($id, $fid);
-        return redirect()->route('user.proposals', ['id' => $id]);
-    }
-
-    /**
-     * deny friendship offer, person adds to subscribers list
-     *
-     * @param Request $request
-     * @param Friend $modelFriend
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function denyFriendship(Request $request, Friend $modelFriend, $id)
-    {
-        $fid = $request->get('fid');
-        $modelFriend->denyFriendship($id, $fid);
-        return redirect()->route('user.proposals', ['id' => $id]);
-    }
-
-    public function addFriendship(Request $request, Friend $modelFriend, $id)
-    {
-        $fid = $request->get('fid');
-        $modelFriend->addFriendship($id, $fid);
-        return redirect()->back();
-    }
-
-    public function removeFriendship(Request $request, Friend $modelFriend, $id)
-    {
-        $fid = $request->get('fid');
-        $modelFriend->removeFriendship($id, $fid);
-        return redirect()->back();
+        $friends = $modelUser->getDenied($id);
+        return view('friends', ['friends' => $friends, 'notice' => 'Подписчиков нет', 'destination' => false]);
     }
 
     public function dialogs(User $modelUser, $id)
     {
         $dialogs = $modelUser->getDialogs($id);
-//        dd($dialogs);
         return view('dialogs', ['dialogs' => $dialogs]);
     }
 

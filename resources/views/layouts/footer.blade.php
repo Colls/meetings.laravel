@@ -32,7 +32,7 @@
                 <!--</a>-->
                 <!--</li>-->
                 <!--</ul>-->
-                <p class="copyright text-muted">@Meet. Сайт знакомств 2015</p>
+                <p class="copyright text-muted">@Meet. Сайт знакомств {{ date('Y') }}</p>
             </div>
         </div>
     </div>

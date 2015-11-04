@@ -22,6 +22,9 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.css">
     <link rel="stylesheet" type="text/css" href="/css/myCss.css">
+    <link rel="stylesheet" type="text/css" href="/css/registered.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/messages.css">
 
     <!-- Custom Fonts -->
     <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
@@ -56,15 +59,15 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>{!! link_to_route('home', 'Главная') !!}</li>
+<!--                <li>{!! link_to_route('home', 'Главная') !!}</li>-->
                 <li>{!! link_to_route('boys', 'Парни') !!}</li>
                 <li>{!! link_to_route('girls', 'Девушки') !!}</li>
                 @if (Auth::check())
-                <li>{!! link_to_route('user.info', 'Моя страница', ['id' => Auth::user()->id]) !!}</li>
-                <li>{!! link_to_route('logout', 'Выйти') !!}</li>
+                    <li>{!! link_to_route('user.info', 'Моя страница', ['id' => Auth::id()]) !!}</li>
+                    <li>{!! link_to_route('logout', 'Выйти ( ' . Auth::user()->first_name . ' ' . Auth::user()->last_name . ' )') !!}</li>
                 @else
-                <li>{!! link_to_route('user.create', 'Регистрация') !!}</li>
-                <li>{!! link_to_route('user.login', 'Войти') !!}</li>
+                    <li>{!! link_to_route('user.create', 'Регистрация') !!}</li>
+                    <li>{!! link_to_route('login', 'Войти') !!}</li>
                 @endif
             </ul>
         </div>

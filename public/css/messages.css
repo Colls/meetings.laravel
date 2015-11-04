@@ -1,0 +1,89 @@
+
+.dialogs
+{
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.dialogs .dialog
+{
+    height: 150px;
+    opacity: 0.8;
+    padding: 5px;
+}
+
+.dialogs .dialog > a:nth-of-type(2), .dialogs .dialog > a:nth-of-type(3)
+{
+    display: inline-block;
+    height: 100%;
+    float: left;
+    color: #5d1429;
+    text-decoration: none;
+}
+
+.dialogs .dialog > a:nth-of-type(2)
+{
+    width: 85%;
+    padding-top: 55px;
+}
+
+.dialogs .dialog > a:nth-of-type(3)
+{
+    width: 3%;
+}
+
+.dialogs .dialog img
+{
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.dialogs .dialog:hover
+{
+    opacity: 1;
+    background: #fadaee;
+}
+
+.dialogs > span
+{
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.chat
+{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px 0;
+    overflow-y: auto;
+    height: 450px;
+    margin-bottom: 5px;
+}
+
+.chat .comment
+{
+    margin: 0;
+    background: #F6E6EA;
+    padding: 20px;
+}
+
+.chat > div:nth-of-type(2n-1)
+{
+    font-weight: bold;
+    text-align: left;
+    margin: auto 10px;
+}
+
+.chat > div:nth-of-type(2n)
+{
+    font-style: italic;
+    text-align: justify;
+}
+
+.chat-form textarea
+{
+    height: 150px;
+}

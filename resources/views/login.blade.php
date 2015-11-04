@@ -2,7 +2,7 @@
 @section('content')
 <div class="form registration col-lg-10 col-lg-offset-1">
     <h3>Вход на сайт</h3>
-    {!! Form::open(['action' => 'UserController@login', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['action' => 'PageController@login', 'class' => 'form-horizontal']) !!}
     <div class="form-group">
         {!! Form::label('email', 'Email', ['class' => 'control-label col-xs-2']) !!}
         <div class="col-xs-8">

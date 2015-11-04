@@ -10,6 +10,7 @@
     <div class="my_menu">
         {!! link_to_route('user.proposals', 'Мне предлагают дружбу...', ['id' => Auth::id()]) !!}
         {!! link_to_route('user.subscriptions', 'Я предлагаю дружбу...', ['id' => Auth::id()]) !!}
+        {!! link_to_route('user.denied', 'Подписчики', ['id' => Auth::id()]) !!}
     </div>
     @if($friends->count())
         @foreach($friends as $f)

@@ -17,7 +17,7 @@
                 </div>
             @endforeach
         @else
-            Диалогов нет
+            <span>Диалогов нет</span>
         @endif
     </div>
 </div>

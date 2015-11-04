@@ -1,0 +1,147 @@
+.user_photo
+{
+    padding: 15px;
+    height: 100%;
+}
+
+.my_menu
+{
+    text-align: right;
+    padding: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.my_menu > a
+{
+    display: inline-block;
+    margin: 5px 15px;
+    opacity: 0.8;
+    color: #34346b;
+}
+
+.my_menu > a:hover
+{
+    opacity: 1;
+}
+
+.user_info > div > img
+{
+    width: 350px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+.user_info > .data > span:nth-child(2n-1)
+{
+    font-weight: bold;
+}
+
+.user_info
+{
+    height: 450px;
+}
+
+.user_info > .data
+{
+    float: left;
+    width: 420px;
+    /*margin: 10px;*/
+    margin: 50px 10px;
+    border: none;
+    background: #fAf5ff;
+    height: 450px;
+}
+
+.user_info > .data > span
+{
+    display: inline-block;
+}
+
+.user_info > .data > span, .user_info > .data > div > ul
+{
+    font-size: 17px;
+    width: 160px;
+    padding: 5px 10px;
+    vertical-align: top;
+    margin: 8px;
+}
+.user_info > .data > div
+{
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.user_info > .data > div > ul
+{
+    list-style-type: none;
+}
+
+.user_info > .data > div, .user_info > .data > span > a
+{
+    display: inline-block;
+}
+
+.user_info > .data > span > a
+{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 5px;
+    font-weight: normal;
+    width: 150px;
+    text-decoration: none;
+    color: #5d1429;
+    background: linear-gradient(to bottom, #fadaee, #f2eeff);
+    opacity: 0.9;
+}
+
+.user_info > .data > span > a:hover
+{
+    opacity: 1;
+    border: 1px solid #808080;
+}
+
+.user_info > .friends
+{
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: 105px;
+    height: 450px;
+}
+
+.user_info > .friends > .friend
+{
+    font-size: 16px;
+    background: #f0f0f5;
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 220px;
+    min-height: 265px;
+    max-height: 345px;
+    font-weight: bold;
+}
+
+.user_info > .friends > .friend img
+{
+    height: 80%;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user_info > .friends > .friend > a
+{
+    display: block;
+    margin: 10px;
+    color: #34346b;
+}
+
+.row > span
+{
+    display: inline-block;
+    margin-top: 30px;
+}

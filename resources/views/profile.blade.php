@@ -55,7 +55,7 @@
             @foreach ($friends as $f)
                 <div class="friend">
                     <a href="/user/{{ $f->id }}"><img src = "/upload/{{ $f->storage }}/{{ $f->avatar }}"></a>
-                    <a href="#sendmessage">{{ $f->first_name }}</a>
+                    {!! link_to_route('message.create', $f->first_name, ['id' => Auth::id(), 'fid' => $u->id]) !!}
                 </div>
             @endforeach
         @else

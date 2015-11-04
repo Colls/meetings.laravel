@@ -40,4 +40,11 @@ $(document).ready(function(){
         changeYear: true,
         dateFormat: 'yy-mm-dd'
     });
+
+    $('.dialog').hover(function() {
+        $(this).find('a:nth-of-type(3)').removeClass('hidden');
+    }, function()
+    {
+        $(this).find('a:nth-of-type(3)').addClass('hidden');
+    });
 });

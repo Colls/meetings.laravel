@@ -72,7 +72,7 @@ class User extends Model implements AuthenticatableContract,
         $boys = $this->
             last()->
             where('gender', '=', 'm')->
-            paginate(8);
+            paginate(12);
         return $boys;
     }
 
@@ -86,7 +86,7 @@ class User extends Model implements AuthenticatableContract,
         $girls = $this->
             last()->
             where('gender', '=', 'f')->
-            paginate(8);
+            paginate(12);
         return $girls;
     }
 
@@ -99,7 +99,7 @@ class User extends Model implements AuthenticatableContract,
     {
         $last = $this->
             last()->
-            paginate(8);
+            paginate(12);
         return $last;
     }
 
@@ -127,6 +127,30 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hobbies()
+    {
+        return $this->hasMany('App\Models\Hobby');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function avatars()
+    {
+        return $this->hasMany('App\Models\Avatar');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function dialogs()
+    {
+        return $this->hasMany('App\Models\Dialog');
+    }
+
+    /**
      * get approved friends of selected user
      *
      * @param $id
@@ -146,14 +170,6 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function hobbies()
-    {
-        return $this->hasMany('App\Models\Hobby');
-    }
-
-    /**
      * get hobbies of selected user
      *
      * @param $id
@@ -167,19 +183,6 @@ class User extends Model implements AuthenticatableContract,
             join('interests', 'interests.id', '=', 'interest_id')->
             get();
         return $result;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function avatars()
-    {
-        return $this->hasMany('App\Models\Avatar');
-    }
-
-    public function dialogs()
-    {
-        return $this->hasMany('App\Models\Dialog');
     }
 
     /**
@@ -213,7 +216,6 @@ class User extends Model implements AuthenticatableContract,
         $proposals = $user->
             friends()->
             where('status','proposal')->
-//            orWhere('status','delete')->
             join('users', 'users.id', '=', 'friends.friend_id')->
             join('avatars', 'avatars.user_id', '=', 'users.id')->
             where('active', '=', 1)->
@@ -221,21 +223,21 @@ class User extends Model implements AuthenticatableContract,
         return $proposals;
     }
 
-//    public function getDenied($id)
-//    {
-//        $user = $this->find($id);
-//        $denied = $user->
-//            friends()->
-//            where('status','denied')->
-//            join('users', 'users.id', '=', 'friends.friend_id')->
-//            join('avatars', 'avatars.user_id', '=', 'users.id')->
-//            where('active', '=', 1)->
-//            get();
-//        return $denied;
-//    }
+    public function getDenied($id)
+    {
+        $user = $this->find($id);
+        $denied = $user->
+            friends()->
+            where('status','denied')->
+            join('users', 'users.id', '=', 'friends.friend_id')->
+            join('avatars', 'avatars.user_id', '=', 'users.id')->
+            where('active', '=', 1)->
+            get();
+        return $denied;
+    }
 
     /**
-     * check if friendship already exists
+     * check if friendship note already exists in table
      *
      * @param $id
      * @param $fid

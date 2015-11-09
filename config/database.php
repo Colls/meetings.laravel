@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'meetings.laravel'),
-            'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', '1234'),
+            'host'      => env('DB_HOST', 'mysql.hostinger.com.ua'),
+            'database'  => env('DB_DATABASE', 'u376454239_meet'),
+            'username'  => env('DB_USERNAME', 'u376454239_root'),
+            'password'  => env('DB_PASSWORD', 'root_meet'),
             'charset'   => 'utf8',
             'collation' => 'utf8_general_ci',
             'prefix'    => '',

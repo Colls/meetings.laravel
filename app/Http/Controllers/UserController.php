@@ -8,6 +8,8 @@ use App\Helpers\FileSystemHelper;
 use Auth; //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Avatar;
+use Illuminate\Support\Facades\Hash;
+use Mockery\CountValidator\Exception;
 
 class UserController extends Controller
 {
@@ -61,7 +63,7 @@ class UserController extends Controller
                 'gender' => $request->get('gender'),
                 'married' => $request->get('married'),
                 'birth_date' => $request->get('birth_date'),
-                'password' => bcrypt($request->get('password')),
+                'password' => Hash::make($request->get('password')),
                 'storage' => $storage
             ]);
             $avatarModel->create([
@@ -102,7 +104,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        dd('i am owner of acc with id ' . $id);
+        $user = User::find($id);
+        return view('profile_edit', ['user' => $user]);
     }
 
     /**
@@ -114,7 +117,42 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'fname' => 'required|alpha',
+                'lname' => 'required|alpha',
+                'email' => 'required|email|unique:users,email,' .$id,
+                'gender' => 'required',
+                'married' => 'required|boolean',
+                'birth_date' => 'required|regex:/^[\d]{4}-[\d]{2}-[\d]{2}$/',
+                'password' => 'min:6',
+                'password_confirmation' => 'same:password'
+            ],
+            [
+                'required' => 'You have not fill field ":attribute". Please, fill it',
+                'unique' => 'Such :attribute already exists'
+            ]
+        );
+        $password = $request->has('password') ? Hash::make($request->get('password')) : $request->get('old_password');
+        $user = User::find($id);
+        try {
+            $upd = $user->update([
+                'first_name' => $request->get('fname'),
+                'last_name' => $request->get('lname'),
+                'email' => $request->get('email'),
+                'gender' => $request->get('gender'),
+                'married' => $request->get('married'),
+                'birth_date' => $request->get('birth_date'),
+                'password' => $password
+            ]);
+            if (!$upd) {
+                throw new Exception('Cannot update profile');
+            }
+        } catch(Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
+        return view('profile_edit', ['user' => $user]);
     }
 
     /**
@@ -179,29 +217,37 @@ class UserController extends Controller
         return view('friends', ['friends' => $friends, 'notice' => 'Предложений нет', 'destination' => false]);
     }
 
+    // in test
+    public function potential(User $modelUser, $id)
+    {
+        $friends = $modelUser->getPotential($id);
+//        return view('friends', ['friends' => $friends, 'notice' => 'Вы указали не достаточно интересов', 'destination' => false]);
+        return view('registered', ['registered' => $friends, 'message' => 'Найдено людей с похожими интересами']);
+    }
+
+//    /**
+//     * show list of my denied friends (i don't want to add this person to friends, person still subscribed on me)
+//     *
+//     * @param User $modelUser
+//     * @param $id
+//     * @return \Illuminate\View\View
+//     */
+//    public function denied(User $modelUser, $id)
+//    {
+//        $friends = $modelUser->getDenied($id);
+//        return view('friends', ['friends' => $friends, 'notice' => 'Подписчиков нет', 'destination' => false]);
+//    }
+
     /**
-     * show list of my denied friends (i don't want to add this person to friends, person still subscribed on me)
+     * show user's dialogs
      *
      * @param User $modelUser
      * @param $id
      * @return \Illuminate\View\View
      */
-    public function denied(User $modelUser, $id)
-    {
-        $friends = $modelUser->getDenied($id);
-        return view('friends', ['friends' => $friends, 'notice' => 'Подписчиков нет', 'destination' => false]);
-    }
-
     public function dialogs(User $modelUser, $id)
     {
         $dialogs = $modelUser->getDialogs($id);
         return view('dialogs', ['dialogs' => $dialogs]);
     }
-
-//    public function chat(Request $request, $id, User $modelUser)
-//    {
-//        $fid = $request->get('fid');
-//        $chat = $modelUser->getMessages($id, $fid);
-//        return view('chat', ['chat' => $chat, 'id' => Auth::id(), 'fid' => $fid]);
-//    }
 }

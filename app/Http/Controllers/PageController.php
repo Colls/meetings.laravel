@@ -27,7 +27,7 @@ class PageController extends Controller
     public function boys(User $modelUser)
     {
         $registered = $modelUser->getBoys();
-        return view('registered', ['registered' => $registered, 'gender' => 'парней']);
+        return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано парней']);
     }
 
     /**
@@ -37,7 +37,7 @@ class PageController extends Controller
     public function girls(User $modelUser)
     {
         $registered = $modelUser->getGirls();
-        return view('registered', ['registered' => $registered, 'gender' => 'девушек']);
+        return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано девушек']);
     }
 
 //    /**

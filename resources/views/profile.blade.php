@@ -3,13 +3,14 @@
 @section('css')
 {!! Html::style('css/profile.css') !!}
 @stop
+
 @section('content')
 <div class="row user_info">
     @foreach($user as $u)
         @if (Auth::id() == $u->id)
         <div class="my_menu">
             {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => $u->id]) !!}
-            <a href="#potential">Найти друга</a>
+            {!! link_to_route('user.potential', 'Найти друга', ['id' => $u->id]) !!}
             {!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => $u->id]) !!}
             {!! link_to_route('user.dialogs', 'Диалоги', ['id' => $u->id]) !!}
         </div>
@@ -68,6 +69,7 @@
     </div>
 </div>
 @stop
+
 @section('js')
 
 @stop

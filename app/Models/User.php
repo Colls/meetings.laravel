@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -223,19 +224,50 @@ class User extends Model implements AuthenticatableContract,
         return $proposals;
     }
 
-    public function getDenied($id)
-    {
-        $user = $this->find($id);
-        $denied = $user->
-            friends()->
-            where('status','denied')->
-            join('users', 'users.id', '=', 'friends.friend_id')->
-            join('avatars', 'avatars.user_id', '=', 'users.id')->
-            where('active', '=', 1)->
-            get();
-        return $denied;
-    }
+//    public function getDenied($id)
+//    {
+//        $user = $this->find($id);
+//        $denied = $user->
+//            friends()->
+//            where('status','denied')->
+//            join('users', 'users.id', '=', 'friends.friend_id')->
+//            join('avatars', 'avatars.user_id', '=', 'users.id')->
+//            where('active', '=', 1)->
+//            get();
+//        return $denied;
+//    }
 
+    public function getPotential($id)
+    {
+        $myInterests = [];
+        $user = $this->find($id);
+        $hobbies = $user->hobbies()->get(['interest_id']);
+        foreach ($hobbies as $h) {
+            $myInterests[] = $h->interest_id;
+        }
+        $num = count($myInterests) >= 2 ? 2 : false;
+        if ($num) {
+            $potential = $this->
+                join('hobbies', 'hobbies.user_id', '=', 'users.id')->
+                join('avatars', 'avatars.user_id', '=', 'users.id')->
+                where('active', '=', 1)->
+                where(function($query) use ($myInterests, $id){
+                    $query->whereIn('hobbies.interest_id', $myInterests)->
+                        whereNotIn('hobbies.user_id', [$id]);
+                })->
+                groupBy('hobbies.user_id')->
+                havingRaw('count(hobbies.interest_id)>='.$num)->
+                paginate(12);
+        } else {
+            // fake query, result must be paginated
+            $potential = $this->
+                join('hobbies', 'hobbies.user_id', '=', 'users.id')->
+                where('users.id', '=', 'hobbies.interest_id')->
+                where('users.id', '=', 'hobbies.user_id')->
+                paginate(12);
+        }
+        return $potential;
+    }
     /**
      * check if friendship note already exists in table
      *
@@ -249,6 +281,12 @@ class User extends Model implements AuthenticatableContract,
         return !$user->friends()->where('friend_id', $fid)->get()->isEmpty();
     }
 
+    /**
+     * return dialogs of selected user
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getDialogs($id)
     {
         $user = $this->find($id);
@@ -263,11 +301,13 @@ class User extends Model implements AuthenticatableContract,
         return $dialogs;
     }
 
-    public function messages()
-    {
-        return $this->hasMany('App\Models\Message');
-    }
-
+    /**
+     * return all messages between 2 selected users
+     *
+     * @param $id
+     * @param $fid
+     * @return mixed
+     */
     public function getMessages($id, $fid)
     {
         $messages = $this->
@@ -285,25 +325,4 @@ class User extends Model implements AuthenticatableContract,
             get();
         return $messages;
     }
-
-//    private function dialogExist($id, $fid)
-//    {
-//        $user = $this->find($id);
-//        return !$user->friends()->where('friend_id', $fid)->get()->isEmpty();
-//    }
-//
-//    public function createDialog($id, $fid, Dialog $modelDialog)
-//    {
-//        if (!$this->dialogExist($id, $fid)) {
-//            $modelDialog->create([
-//                'user_id' => $id,
-//                'friend_id' => $fid
-//            ]);
-//            $modelDialog->create([
-//                'user_id' => $fid,
-//                'friend_id' => $id
-//            ]);
-//        }
-//    }
-
 }

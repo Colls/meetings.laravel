@@ -1,4 +1,9 @@
 @extends('layouts.simple_layout')
+
+@section('css')
+{!! Html::style('css/registered.css') !!}
+@stop
+
 @section('content')
 <div class="row people">
     <h3>Всего зарегистрировано {{ $gender }}: {{ $registered->total()}}</h3>
@@ -14,5 +19,8 @@
     <div class="clear"></div>
     {!! $registered->render() !!}
 </div>
+@stop
+
+@section('js')
 
 @stop

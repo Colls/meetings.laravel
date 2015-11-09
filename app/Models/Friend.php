@@ -78,11 +78,16 @@ class Friend extends Model
      */
     public function denyFriendship($id, $fid)
     {
-        $den = $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'denied']);
-        if (!$den) {
-            return false;
+        if ($this->cancelFriendship($id, $fid)) {
+            return true;
         }
-        return true;
+        return false;
+
+//        $den = $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'denied']);
+//        if (!$den) {
+//            return false;
+//        }
+//        return true;
     }
 
     /**
@@ -94,15 +99,19 @@ class Friend extends Model
      */
     public function removeFriendship($id, $fid)
     {
-        DB::beginTransaction();
-        $rem1 = $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'proposal']);
-        $rem2 = $this->where('user_id', $fid)->where('friend_id', $id)->update(['status' => 'subscription']);
-        if (!$rem1 || !$rem2) {
-            DB::rollback();
-            return false;
+        if ( $this->cancelFriendship($id, $fid)) {
+            return true;
         }
-        DB::commit();
-        return true;
+        return false;
+//        DB::beginTransaction();
+//        $rem1 = $this->where('user_id', $id)->where('friend_id', $fid)->update(['status' => 'subscription']);
+//        $rem2 = $this->where('user_id', $fid)->where('friend_id', $id)->update(['status' => 'proposal']);
+//        if (!$rem1 || !$rem2) {
+//            DB::rollback();
+//            return false;
+//        }
+//        DB::commit();
+//        return true;
     }
 
     /**

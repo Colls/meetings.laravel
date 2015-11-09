@@ -1,4 +1,7 @@
 @extends('layouts.simple_layout')
+@section('css')
+{!! Html::style('css/formFix.css') !!}
+@stop
 @section('content')
 <div class="form registration col-lg-10 col-lg-offset-1">
     <h3>Вход на сайт</h3>
@@ -28,4 +31,7 @@
     </div>
     {!! Form::close() !!}
 </div>
+@stop
+@section('js')
+
 @stop

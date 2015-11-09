@@ -10,6 +10,7 @@ use Auth;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Dialog;
+use Mockery\CountValidator\Exception;
 
 class MessageController extends Controller
 {
@@ -28,14 +29,14 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(User $modelUser, Request $request, $id)
+    public function create(Message $modelMessage, $id, $fid)
     {
-        $fid = $request->get('fid');
         if (!User::find($fid) || Auth::id() == $fid) {
+//            return redirect()->back()->withErrors(['Пользователь с таким id не существует']);
             abort('404');
         }
-        $chat = $modelUser->getMessages($id, $fid);
-        return view('chat', ['chat' => $chat, 'id' => Auth::id(), 'fid' => $fid]);
+        $chat = $modelMessage->getMessages($id, $fid);
+        return view('chat', ['chat' => $chat, 'id' => $id, 'fid' => $fid]);
     }
 
     /**
@@ -44,19 +45,27 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Message $modelMessage, User $modelUser, Dialog $modelDialog)
+    public function store(Request $request, Message $modelMessage, Dialog $modelDialog, $id, $fid)
     {
-        $fid = $request->get('fid');
         if (!$request->has('message')) {
-            return redirect()->route('message.create', ['id' => Auth::id(), 'fid' => $fid]);
+            return redirect()->route('message.create', ['id' => $id, 'fid' => $fid]);
         }
-        $modelUser->createDialog(Auth::id(), $fid, $modelDialog);
-        $modelMessage->create([
-            'message' => $request->get('message'),
-            'user_id' => $fid,
-            'friend_id' => Auth::id()
-        ]);
-        return redirect()->route('message.create', ['id' => Auth::id(), 'fid' => $fid]);
+        try {
+            if (!$modelDialog->createDialog($id, $fid)) {
+                throw new Exception('Problem with database: cannot create dialog');
+            }
+            $crt = $modelMessage->create([
+                'message' => $request->get('message'),
+                'user_id' => $id,
+                'friend_id' => $fid
+            ]);
+            if (!$crt) {
+                throw new Exception('Problem with database: cannot create message');
+            }
+        } catch(Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
+        }
+        return redirect()->route('message.create', ['id' => $id, 'fid' => $fid]);
     }
 
     /**

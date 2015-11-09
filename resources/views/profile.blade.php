@@ -1,4 +1,8 @@
 @extends('layouts.simple_layout')
+
+@section('css')
+{!! Html::style('css/profile.css') !!}
+@stop
 @section('content')
 <div class="row user_info">
     @foreach($user as $u)
@@ -63,4 +67,7 @@
         @endif
     </div>
 </div>
+@stop
+@section('js')
+
 @stop

@@ -1,4 +1,12 @@
 @extends('layouts.simple_layout')
+
+@section('css')
+{!! Html::style('css/jquery-ui.css') !!}
+{!! Html::style('css/jquery-ui.structure.css') !!}
+{!! Html::style('css/jquery-ui.theme.css') !!}
+{!! Html::style('css/formFix.css') !!}
+@stop
+
 @section('content')
 <div class="form registration col-lg-10 col-lg-offset-1">
     <h3>Регистрация</h3>
@@ -64,4 +72,10 @@
     </div>
     {!! Form::close() !!}
 </div>
+@stop
+
+@section('js')
+{!! Html::script('js/jquery-ui.min.js') !!}
+{!! Html::script('js/datepicker-ru.js') !!}
+{!! Html::script('js/datepickerFormat.js') !!}
 @stop

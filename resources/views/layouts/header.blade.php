@@ -2,30 +2,19 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/favicon.ico">
-
+    {!! Html::favicon('favicon.ico') !!}
     <title>Сайт знакомств</title>
-
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
+    {!! Html::style('css/bootstrap.min.css') !!}
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="/css/clean-blog.css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.structure.css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.css">
-    <link rel="stylesheet" type="text/css" href="/css/myCss.css">
-    <link rel="stylesheet" type="text/css" href="/css/registered.css">
-    <link rel="stylesheet" type="text/css" href="/css/profile.css">
-    <link rel="stylesheet" type="text/css" href="/css/messages.css">
-
+    {!! Html::style('css/commonTheme.css') !!}
+    {!! Html::style('css/myCss.css') !!}
+    @yield('css')
     <!-- Custom Fonts -->
     <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
     <!--<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>-->
@@ -37,11 +26,9 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
-
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -55,11 +42,9 @@
             </button>
             {!! link_to_route('home', 'Meet::Сайт знакомств', [], ['class' => 'navbar-brand']) !!}
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-<!--                <li>{!! link_to_route('home', 'Главная') !!}</li>-->
                 <li>{!! link_to_route('boys', 'Парни') !!}</li>
                 <li>{!! link_to_route('girls', 'Девушки') !!}</li>
                 @if (Auth::check())
@@ -76,8 +61,7 @@
     <!-- /.container -->
 </nav>
 
-<!-- Page Header -->
-<!-- Set your background image for this header on the line below. -->
+<!-- Page Header, big image -->
 <header class="intro-header">
 
 </header>

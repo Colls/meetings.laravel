@@ -272,7 +272,7 @@ class User extends Model implements AuthenticatableContract,
     {
         $messages = $this->
             select('messages.*', 'messages.created_at as time', 'users.*', 'avatars.*')->
-            join('messages', 'messages.friend_id', '=', 'users.id')->
+            join('messages', 'messages.user_id', '=', 'users.id')->
             where(function($query) use ($id, $fid){
                 $query->where('messages.friend_id', $id)->where('messages.user_id', $fid);
             })->
@@ -286,24 +286,24 @@ class User extends Model implements AuthenticatableContract,
         return $messages;
     }
 
-    private function dialogExist($id, $fid)
-    {
-        $user = $this->find($id);
-        return !$user->friends()->where('friend_id', $fid)->get()->isEmpty();
-    }
-
-    public function createDialog($id, $fid, Dialog $modelDialog)
-    {
-        if (!$this->dialogExist($id, $fid)) {
-            $modelDialog->create([
-                'user_id' => $id,
-                'friend_id' => $fid
-            ]);
-            $modelDialog->create([
-                'user_id' => $fid,
-                'friend_id' => $id
-            ]);
-        }
-    }
+//    private function dialogExist($id, $fid)
+//    {
+//        $user = $this->find($id);
+//        return !$user->friends()->where('friend_id', $fid)->get()->isEmpty();
+//    }
+//
+//    public function createDialog($id, $fid, Dialog $modelDialog)
+//    {
+//        if (!$this->dialogExist($id, $fid)) {
+//            $modelDialog->create([
+//                'user_id' => $id,
+//                'friend_id' => $fid
+//            ]);
+//            $modelDialog->create([
+//                'user_id' => $fid,
+//                'friend_id' => $id
+//            ]);
+//        }
+//    }
 
 }

@@ -11,13 +11,3 @@
 {
     clear: both;
 }
-
-.form > h3
-{
-    margin: 20px auto;
-}
-
-.form > form > div > label
-{
-    font-weight: bolder;
-}

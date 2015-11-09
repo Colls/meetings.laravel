@@ -1,4 +1,9 @@
 @extends('layouts.simple_layout')
+
+@section('css')
+{!! Html::style('css/registered.css') !!}
+{!! Html::style('css/profile.css') !!}
+@stop
 @section('content')
 <div class="row">
     <div class="my_menu">
@@ -10,7 +15,6 @@
     <div class="my_menu">
         {!! link_to_route('user.proposals', 'Мне предлагают дружбу...', ['id' => Auth::id()]) !!}
         {!! link_to_route('user.subscriptions', 'Я предлагаю дружбу...', ['id' => Auth::id()]) !!}
-        {!! link_to_route('user.denied', 'Подписчики', ['id' => Auth::id()]) !!}
     </div>
     @if($friends->count())
         @foreach($friends as $f)
@@ -29,4 +33,7 @@
         <span>{{ $notice }}</span>
     @endif
 </div>
+@stop
+@section('js')
+
 @stop

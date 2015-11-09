@@ -1,4 +1,8 @@
 @extends('layouts.simple_layout')
+@section('css')
+{!! Html::style('css/profile.css') !!}
+{!! Html::style('css/messages.css') !!}
+@stop
 @section('content')
 <div class="row">
     <div class="my_menu">
@@ -31,5 +35,7 @@
         {!! Form::close() !!}
     </div>
 </div>
+@stop
+@section('js')
 
 @stop

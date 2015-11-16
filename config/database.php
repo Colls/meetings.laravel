@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'mysql.hostinger.com.ua'),
-            'database'  => env('DB_DATABASE', 'u376454239_meet'),
-            'username'  => env('DB_USERNAME', 'u376454239_root'),
-            'password'  => env('DB_PASSWORD', 'root_meet'),
+            'host'      => env('DB_HOST', 'database_host'),
+            'database'  => env('DB_DATABASE', 'database_name'),
+            'username'  => env('DB_USERNAME', 'database_username'),
+            'password'  => env('DB_PASSWORD', 'database_password'),
             'charset'   => 'utf8',
             'collation' => 'utf8_general_ci',
             'prefix'    => '',

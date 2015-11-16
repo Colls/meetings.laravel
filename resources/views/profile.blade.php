@@ -10,7 +10,7 @@
         @if (Auth::id() == $u->id)
         <div class="my_menu">
             {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => $u->id]) !!}
-            {!! link_to_route('user.potential', 'Найти друга', ['id' => $u->id]) !!}
+<!--            {!! link_to_route('user.potential', 'Найти друга', ['id' => $u->id]) !!}-->
             {!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => $u->id]) !!}
             {!! link_to_route('user.dialogs', 'Диалоги', ['id' => $u->id]) !!}
         </div>

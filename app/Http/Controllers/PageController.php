@@ -7,9 +7,16 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\View;
 
 class PageController extends Controller
 {
+    private $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +34,10 @@ class PageController extends Controller
     public function boys(User $modelUser)
     {
         $registered = $modelUser->getBoys();
+        if ($this->request->ajax()) {
+            // todo more friendly response
+            return response()->json(View::make('inc_users', array('registered' => $registered, 'message' => 'Всего зарегистрировано парней'))->render());
+        }
         return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано парней']);
     }
 
@@ -37,6 +48,10 @@ class PageController extends Controller
     public function girls(User $modelUser)
     {
         $registered = $modelUser->getGirls();
+        if ($this->request->ajax()) {
+            // todo more friendly response
+            return response()->json(View::make('inc_users', array('registered' => $registered, 'message' => 'Всего зарегистрировано девушек'))->render());
+        }
         return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано девушек']);
     }
 
@@ -47,7 +62,11 @@ class PageController extends Controller
 //    public function last(User $modelUser)
 //    {
 //        $registered = $modelUser->getLast();
-//        return view('registered', ['registered' => $registered, 'gender' => 'человек']);
+//        if ($this->request->ajax()) {
+//            // todo more friendly response
+//            return response()->json(View::make('inc_users', array('registered' => $registered, 'message' => 'Всего зарегистрировано'))->render());
+//        }
+//        return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано']);
 //    }
 
     /**

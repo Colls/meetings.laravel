@@ -73,7 +73,7 @@ class User extends Model implements AuthenticatableContract,
         $boys = $this->
             last()->
             where('gender', '=', 'm')->
-            paginate(12);
+            paginate(3);
         return $boys;
     }
 
@@ -87,7 +87,7 @@ class User extends Model implements AuthenticatableContract,
         $girls = $this->
             last()->
             where('gender', '=', 'f')->
-            paginate(12);
+            paginate(3);
         return $girls;
     }
 

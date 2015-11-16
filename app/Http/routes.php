@@ -53,18 +53,20 @@ Route::group(['prefix' => 'user/{id}'], function()
         get('/edit',['as' => 'user.edit','uses' => 'UserController@edit']);
         post('/edit',['as' => 'user.update','uses' => 'UserController@update']);
 
+        /* friends */
         get('/subscriptions',['as' => 'user.subscriptions','uses' => 'UserController@subscriptions']);
         get('/proposals',['as' => 'user.proposals','uses' => 'UserController@proposals']);
 //        get('/denied',['as' => 'user.denied','uses' => 'UserController@denied']);
         get('/potential',['as' => 'user.potential','uses' => 'UserController@potential']);
 
-        // friendship controls
+        /* friendship controls */
         get('/cancel/{fid}',['as' => 'cancel.friendship','uses' => 'FriendshipController@cancel']);
         get('/approve/{fid}',['as' => 'approve.friendship','uses' => 'FriendshipController@approve']);
         get('/deny/{fid}',['as' => 'deny.friendship','uses' => 'FriendshipController@deny']);
         get('/add/{fid}',['as' => 'add.friendship','uses' => 'FriendshipController@add']);
         get('/remove/{fid}',['as' => 'remove.friendship','uses' => 'FriendshipController@remove']);
 
+        /* messages */
         get('/dialogs',['as' => 'user.dialogs','uses' => 'UserController@dialogs']);
 //        get('/dialogs/remove/{fid}',['as' => 'dialog.remove','uses' => 'UserController@removeDialog']);
 

@@ -10,7 +10,7 @@
 @section('content')
 <div class="my_menu">
     {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => $user->id]) !!}
-    <a href="#potential">Найти друга</a>
+<!--    {!! link_to_route('user.potential', 'Найти друга', ['id' => Auth::id()]) !!}-->
     {!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => $user->id]) !!}
     {!! link_to_route('user.dialogs', 'Диалоги', ['id' => $user->id]) !!}
 </div>

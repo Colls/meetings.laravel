@@ -32,12 +32,6 @@ class OwnerCheck
      */
     public function handle($request, Closure $next)
     {
-//        if ($this->auth->check()) {
-//            if ($request->route()->id == $this->auth->id()) {
-//                return $next($request);
-//            }
-//        return redirect()->back();
-//        }
         if ($this->auth->check() && $request->route()->id == $this->auth->id()) {
             return $next($request);
         }

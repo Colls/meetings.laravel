@@ -7,6 +7,9 @@
 @section('content')
 <div class="row error404">
     <div class="col-lg-6">
+        {!! Html::image('img/joda.jpg', '404. Not found!') !!}
+    </div>
+    <div class="col-lg-6">
         <h3>Страница запрашиваемая не найдена.</h3>
         Вернуться можешь ты на:
         <ul>
@@ -17,9 +20,6 @@
                 <li>{!! link_to_route('login', 'страницу входа') !!}</li>
             @endif
         </ul>
-    </div>
-    <div class="col-lg-6">
-        {!! Html::image('img/joda.jpg', '404. Not found!') !!}
     </div>
 </div>
 @stop

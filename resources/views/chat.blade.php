@@ -6,8 +6,8 @@
 @section('content')
 <div class="row">
     <div class="my_menu">
-        <a href="#">Редактировать профиль</a>
-        <a href="#">Найти друга</a>
+        {!! link_to_route('user.edit', 'Редактировать профиль', ['id' => Auth::id()]) !!}
+<!--        {!! link_to_route('user.potential', 'Найти друга', ['id' => Auth::id()]) !!}-->
         {!! link_to_route('user.subscriptions', 'Заявки в друзья', ['id' => Auth::id()]) !!}
         {!! link_to_route('user.dialogs', 'Диалоги', ['id' => Auth::id()]) !!}
     </div>

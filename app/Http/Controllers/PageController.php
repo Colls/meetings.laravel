@@ -7,16 +7,22 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Auth;
-use Illuminate\Support\Facades\View;
 
 class PageController extends Controller
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
     private $request;
 
+    /**
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,28 +35,26 @@ class PageController extends Controller
 
     /**
      * @param User $modelUser
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
     public function boys(User $modelUser)
     {
         $registered = $modelUser->getBoys();
         if ($this->request->ajax()) {
-            // todo more friendly response
-            return response()->json(View::make('inc_users', array('registered' => $registered, 'message' => 'Всего зарегистрировано парней'))->render());
+            return response()->json(view('inc_users', ['registered' => $registered, 'message' => 'Всего зарегистрировано парней'])->render());
         }
         return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано парней']);
     }
 
     /**
      * @param User $modelUser
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
     public function girls(User $modelUser)
     {
         $registered = $modelUser->getGirls();
         if ($this->request->ajax()) {
-            // todo more friendly response
-            return response()->json(View::make('inc_users', array('registered' => $registered, 'message' => 'Всего зарегистрировано девушек'))->render());
+            return response()->json(view('inc_users', ['registered' => $registered, 'message' => 'Всего зарегистрировано девушек'])->render());
         }
         return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано девушек']);
     }
@@ -63,8 +67,7 @@ class PageController extends Controller
 //    {
 //        $registered = $modelUser->getLast();
 //        if ($this->request->ajax()) {
-//            // todo more friendly response
-//            return response()->json(View::make('inc_users', array('registered' => $registered, 'message' => 'Всего зарегистрировано'))->render());
+//            return response()->json(view('inc_users', ['registered' => $registered, 'message' => 'Всего зарегистрировано людей'])->render());
 //        }
 //        return view('registered', ['registered' => $registered, 'message' => 'Всего зарегистрировано']);
 //    }

@@ -23,7 +23,7 @@ Route::group([], function()
     get('/',['as' => 'home','uses' => 'PageController@main']);
     get('/boys',['as' => 'boys','uses' => 'PageController@boys']);
     get('/girls',['as' => 'girls','uses' => 'PageController@girls']);
-//get('/last',['as' => 'last','uses' => 'PageController@last']);
+//    get('/last',['as' => 'last','uses' => 'PageController@last']);
     Route::group(['middleware' => ['guest']], function() {
         get('/login',['as' => 'login','uses' => 'PageController@login']);
         get('/registration',['as' => 'user.create','uses' => 'UserController@create']);

@@ -91,18 +91,18 @@ class User extends Model implements AuthenticatableContract,
         return $girls;
     }
 
-    /**
-     * get all registered people
-     *
-     * @return mixed
-     */
-    public function getLast()
-    {
-        $last = $this->
-            last()->
-            paginate(12);
-        return $last;
-    }
+//    /**
+//     * get all registered people
+//     *
+//     * @return mixed
+//     */
+//    public function getLast()
+//    {
+//        $last = $this->
+//            last()->
+//            paginate(12);
+//        return $last;
+//    }
 
     /**
      * get selected user
